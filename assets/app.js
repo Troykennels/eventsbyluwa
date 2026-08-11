@@ -385,3 +385,19 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
     })
     .catch(function(){});
 })();
+
+// ---- Sticky mobile booking bar (persistent CTA on phones) ----
+(function(){
+  if (document.querySelector('.book-bar')) return;
+  var bar = document.createElement('div');
+  bar.className = 'book-bar';
+  bar.innerHTML =
+    '<button type="button" class="btn btn-primary" id="bbBook">Start your booking</button>' +
+    '<a class="bb-wa" href="https://wa.me/447823683189" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
+    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.1 8.1 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg></a>';
+  document.body.appendChild(bar);
+  bar.querySelector('#bbBook').addEventListener('click', function(){
+    if (window.EBL_openBooking) window.EBL_openBooking();
+    else window.location.href = 'contact.html';
+  });
+})();
