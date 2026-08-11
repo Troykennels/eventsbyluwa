@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FBF6EE">
+<title>Analytics, Events by Luwa (Private)</title>
+<meta name="description" content="Private analytics dashboard for Events by Luwa.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="brand/logo.png">
+<link rel="apple-touch-icon" href="brand/logo.png">
+<!-- ANALYTICS: GA4/analytics tag goes here once a Measurement ID is provided -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .admin-tag{display:inline-flex;align-items:center;gap:8px;background:var(--wine);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;}
+  .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-3);margin-bottom:var(--sp-5);}
+  @media(max-width:900px){ .metric-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .metric-grid{grid-template-columns:1fr;} }
+  .metric{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-m);padding:var(--sp-4);box-shadow:var(--shadow-1);}
+  .metric .label{display:flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;}
+  .metric .label svg{width:16px;height:16px;color:var(--teal-deep);}
+  .metric .value{font-family:'Playfair Display',serif;font-size:2rem;color:var(--ink);margin-top:8px;line-height:1;}
+  .metric .value.pending{color:var(--ink-soft);opacity:.5;}
+  .metric .hint{font-size:.78rem;color:var(--ink-soft);margin-top:6px;}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:#cbd5c9;display:inline-block;}
+  .dash-embed{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-l);box-shadow:var(--shadow-1);overflow:hidden;margin-bottom:var(--sp-5);}
+  .dash-embed iframe{width:100%;height:640px;border:0;display:block;}
+  .dash-embed .ph{padding:var(--sp-7) var(--sp-4);text-align:center;color:var(--ink-soft);}
+  .dash-embed .ph svg{width:44px;height:44px;color:var(--gold);margin:0 auto var(--sp-3);display:block;}
+  .setup{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:var(--sp-5);}
+  .setup ol{margin:var(--sp-3) 0 0;padding-left:20px;color:var(--ink);}
+  .setup li{margin-bottom:12px;line-height:1.6;}
+  .setup code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:.86rem;}
+</style>
+</head>
+<body style="background-color:#FBF6EE !important;">
+<script>document.body.classList.add('pre-load');</script>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div id="loader" aria-hidden="true">
+  <img src="brand/logo.png" alt="Events by Luwa">
+  <div class="thread"><i></i></div>
+</div>
+
+<div class="announce">Available Across the UK &amp; Beyond &nbsp;·&nbsp; Creating Beautiful Magic Since 2017 &nbsp;·&nbsp; Professional Event Planning &amp; Coordination</div>
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="Events by Luwa, home">
+      <span class="brand-badge"><img src="brand/logo.png" alt="Events by Luwa logo"></span>
+      <span class="brand-word">Events by Luwa<small>Event Planning &amp; Management</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-outline btn-outline-desktop">Let's Plan Your Event</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-panel-top">
+    <span class="brand-word">Menu</span>
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn btn-primary" style="margin-top:24px;justify-content:center;">Let's Plan Your Event</a>
+</div>
+
+<main id="main">
+  <section class="page-hero">
+    <span class="orb orb-teal" aria-hidden="true"></span>
+    <span class="orb orb-gold" aria-hidden="true"></span>
+    <svg class="ph-bird" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 13c3-3.4 5.3-4.4 7-3.2.4.3.7.7 1 1.2.3-.5.6-.9 1-1.2 1.7-1.2 4-.2 7 3.2-2.4-1.1-4.2-1.4-5.5-1-1 .3-1.8 1-2.5 2-.7-1-1.5-1.7-2.5-2-1.3-.4-3.1-.1-5.5 1Z"/></svg>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a href="index.html">Home</a> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg> <span>Analytics</span></div>
+      <span class="admin-tag" style="margin-bottom:10px;">Private · Owner only</span>
+      <h1>Website <em>Analytics</em></h1>
+      <p class="lead">Live traffic and visitor insight for eventsbyluwa, sources, popular pages, devices and enquiries.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="label"><span class="live-dot" id="liveDot"></span> Live visitors now</div>
+          <div class="value pending" id="mLive">, </div>
+          <div class="hint">Real-time active users</div>
+        </div>
+        <div class="metric">
+          <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg> Visitors (7 days)</div>
+          <div class="value pending" id="mVisitors">, </div>
+          <div class="hint">Unique visitors</div>
+        </div>
+        <div class="metric">
+          <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> Page views (7 days)</div>
+          <div class="value pending" id="mViews">, </div>
+          <div class="hint">Total pages seen</div>
+        </div>
+        <div class="metric">
+          <div class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 6v4l3 2"/></svg> Avg. time on site</div>
+          <div class="value pending" id="mTime">, </div>
+          <div class="hint">Engagement</div>
+        </div>
+      </div>
+
+      <div class="dash-embed">
+        <!-- When you provide a Looker Studio (Google) embed URL, replace the block below with:
+             <iframe src="YOUR_LOOKER_STUDIO_EMBED_URL" title="Events by Luwa analytics"></iframe> -->
+        <div class="ph" id="dashPh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          <h3 style="font-family:'Playfair Display',serif;margin-bottom:8px;">Live dashboard not connected yet</h3>
+          <p style="max-width:52ch;margin:0 auto;">Once analytics is connected (below), your live traffic dashboard, charts, sources, top pages, devices and real-time users, appears here.</p>
+        </div>
+      </div>
+
+      <div class="setup">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:4px;">Activate live data, two free steps</h3>
+        <p style="color:var(--ink-soft);">Your site is static, so live numbers come from a free analytics account. Nothing here is invented, the figures stay blank until real data flows in.</p>
+        <ol>
+          <li><strong>Create a free Google Analytics 4 property</strong> at <code>analytics.google.com</code> and copy your Measurement ID (looks like <code>G-XXXXXXXXXX</code>). Send it to me and I'll add the tracking tag to every page, traffic starts recording immediately.</li>
+          <li><strong>(Optional) Live in-site dashboard:</strong> in <code>lookerstudio.google.com</code>, create a free report from your GA4 data, click <em>Share → Embed</em>, and send me the embed URL. I'll drop it into the panel above so the live charts show right here.</li>
+        </ol>
+        <p style="color:var(--ink-soft);margin-top:8px;font-size:.9rem;">Prefer a privacy-friendly option (Cloudflare Web Analytics or Plausible)? Tell me, the setup is the same and I'll wire whichever you choose.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <span class="brand-badge"><img src="brand/logo.png" alt="Events by Luwa logo"></span>
+          <span class="footer-brand-word">Events by Luwa</span>
+        </div>
+        <p class="desc">Event planning, consulting, venue scouting, coordination and management, creating beautiful magic with your event since 2017.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/447823683189" target="_blank" rel="noopener">+44 7823 683189</a></li>
+          <li><a href="mailto:eventsbyluwa22@gmail.com">eventsbyluwa22@gmail.com</a></li>
+          <li><a href="https://instagram.com/eventsbyluwa_" target="_blank" rel="noopener">@eventsbyluwa_</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="yr"></span> Events by Luwa. Private analytics.</span>
+      <span><a href="index.html">Back to site</a></span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script src="assets/app.js" defer></script>
+</body>
+</html>
