@@ -1,0 +1,39 @@
+name: Build gallery manifest
+
+# When the owner uploads or removes photos in assets/gallery/, regenerate
+# gallery.json automatically and commit it back. The owner touches no code.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/gallery/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-manifests
+  cancel-in-progress: true
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generate gallery.json
+        run: node scripts/build-manifests.js
+      - name: Commit manifest if it changed
+        run: |
+          git config user.name "gallery-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/gallery/gallery.json
+          if git diff --cached --quiet; then
+            echo "No manifest changes."
+          else
+            git commit -m "Auto-update gallery manifest"
+            git push
+          fi

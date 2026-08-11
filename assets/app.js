@@ -205,27 +205,31 @@ if (form) form.addEventListener('submit', (e) => {
   var lbImg = lb ? lb.querySelector('img') : null;
   var lbClose = document.getElementById('lbClose');
   if (lb && lbImg){
-    document.querySelectorAll('.gal-item').forEach(function(item){
-      var img = item.querySelector('img');
-      if (!img) return; // placeholder tiles carry no photo yet - stay non-interactive
-      item.style.cursor = 'zoom-in';
-      item.setAttribute('role', 'button');
-      item.setAttribute('tabindex', '0');
-      var openLb = function(){
-        lbImg.src = img.currentSrc || img.src;
-        lbImg.alt = img.alt || 'Events by Luwa event';
-        lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
-        lbClose && lbClose.focus();
-      };
-      item.addEventListener('click', openLb);
-      item.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(); }
-      });
-    });
     var closeLb = function(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); lbImg.src = ''; };
     if (lbClose) lbClose.addEventListener('click', closeLb);
     lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+    // Reusable so dynamically-loaded photos become clickable too. Idempotent.
+    window.EBL_bindLightbox = function(scope){
+      (scope || document).querySelectorAll('.gal-item').forEach(function(item){
+        if (item.dataset.lbBound) return;
+        var img = item.querySelector('img');
+        if (!img) return; // placeholder tiles carry no photo yet
+        item.dataset.lbBound = '1';
+        item.style.cursor = 'zoom-in';
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        var openLb = function(){
+          lbImg.src = img.currentSrc || img.src;
+          lbImg.alt = img.alt || 'Events by Luwa event';
+          lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+          if (lbClose) lbClose.focus();
+        };
+        item.addEventListener('click', openLb);
+        item.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(); } });
+      });
+    };
+    window.EBL_bindLightbox(document);
   }
 
   // Footer newsletter - UI-only, made honest: opens the visitor's email app
@@ -341,3 +345,43 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
 
 // No past dates on any date picker (enquiry + booking modal)
 (function(){ try { var t = new Date().toISOString().split('T')[0]; document.querySelectorAll('input[type=date]').forEach(function(d){ d.min = t; }); } catch (e) {} })();
+
+// ---- Data-driven gallery: render owner-uploaded photos from the manifest ----
+// Keeps the designed placeholder tiles when the manifest is empty or unreachable.
+(function(){
+  var grids = document.querySelectorAll('[data-gallery]');
+  if (!grids.length) return;
+  fetch('assets/gallery/gallery.json', { cache: 'no-cache' })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(items){
+      if (!items || !items.length) return; // graceful fallback: keep placeholders
+      var SIZES = ['h1_','h2_','h3_','h4_'];
+      var cats = ['All'];
+      items.forEach(function(it){ if (it.category && cats.indexOf(it.category) < 0) cats.push(it.category); });
+      grids.forEach(function(grid){
+        grid.innerHTML = items.map(function(it,i){
+          return '<figure class="gal-item ' + SIZES[i%4] + '">' +
+            '<img loading="lazy" decoding="async" src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
+            '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
+        }).join('');
+        if (window.EBL_bindLightbox) window.EBL_bindLightbox(grid);
+        var section = grid.closest('section');
+        var row = section ? section.querySelector('.filter-row') : null;
+        if (row){
+          row.innerHTML = cats.map(function(c,i){ return '<button class="filter-btn' + (i===0?' active':'') + '" aria-pressed="' + (i===0?'true':'false') + '">' + c + '</button>'; }).join('');
+          row.querySelectorAll('.filter-btn').forEach(function(btn){
+            btn.addEventListener('click', function(){
+              row.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+              btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+              var cat = btn.textContent.trim();
+              grid.querySelectorAll('.gal-item').forEach(function(it){
+                var t = it.querySelector('.gtag'); var tag = t ? t.textContent.trim() : '';
+                it.style.display = (cat === 'All' || tag === cat) ? '' : 'none';
+              });
+            });
+          });
+        }
+      });
+    })
+    .catch(function(){});
+})();

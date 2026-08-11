@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FBF6EE">
+<title>How to Add Photos - Events by Luwa (Private)</title>
+<meta name="description" content="Owner guide for Events by Luwa.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="brand/logo.png">
+<link rel="apple-touch-icon" href="brand/logo.png">
+<link rel="manifest" href="/eventsbyluwa/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .admin-tag{display:inline-flex;align-items:center;gap:8px;background:var(--wine);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;}
+  .guide{max-width:760px;}
+  .guide-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-l);box-shadow:var(--shadow-1);padding:var(--sp-5);margin-bottom:var(--sp-4);}
+  .guide-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:6px;}
+  .guide-card ol{margin:var(--sp-3) 0 0;padding-left:20px;}
+  .guide-card li{margin-bottom:12px;line-height:1.65;color:var(--ink);}
+  .guide-card code{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:.86rem;}
+  .tip{background:var(--teal-pale);border:1px solid #bfe3db;border-radius:var(--radius-m);padding:var(--sp-3) var(--sp-4);color:var(--teal-deep);font-size:.92rem;}
+  .cats{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .cats span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.82rem;}
+</style>
+</head>
+<body style="background-color:#FBF6EE !important;">
+<script>document.body.classList.add('pre-load');</script>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<div class="announce">Weddings, birthdays and corporate events, planned with love &nbsp;·&nbsp; Serving the UK and beyond since 2017 &nbsp;·&nbsp; Free consultation, message us anytime</div>
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="Events by Luwa, home">
+      <span class="brand-badge"><img src="brand/logo.png" alt="Events by Luwa logo" width="249" height="190"></span>
+      <span class="brand-word">Events by Luwa<small>Event Planning &amp; Management</small></span>
+    </a>
+    <div class="nav-cta">
+      <a href="analytics.html" class="btn btn-outline btn-outline-desktop">Owner tools</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-panel-top"><span class="brand-word">Menu</span><button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button></div>
+  <a href="index.html">View website</a>
+  <a href="analytics.html">Analytics</a>
+  <a href="gallery.html">Gallery</a>
+</div>
+
+<main id="main">
+  <section class="page-hero">
+    <span class="orb orb-teal" aria-hidden="true"></span>
+    <span class="orb orb-gold" aria-hidden="true"></span>
+    <div class="wrap page-hero-inner">
+      <div class="breadcrumb"><a href="analytics.html">Owner tools</a> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg> <span>Add photos</span></div>
+      <span class="admin-tag" style="margin-bottom:10px;">Private, for the owner</span>
+      <h1>Adding your beautiful work is simple</h1>
+      <p class="lead">You do not need any code. You upload photos into a folder, and your website gallery updates itself within about a minute.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap guide">
+
+      <div class="guide-card">
+        <h3>Add photos to the gallery</h3>
+        <ol>
+          <li>Open your website project at <code>github.com/Troykennels/eventsbyluwa</code> and sign in.</li>
+          <li>Click the <code>assets</code> folder, then <code>gallery</code>, then the folder for the kind of event, for example <code>weddings</code>.</li>
+          <li>Click <strong>Add file</strong>, then <strong>Upload files</strong>. Drag your photos in, or choose them from your computer.</li>
+          <li>Scroll down and click the green <strong>Commit changes</strong> button.</li>
+          <li>Wait about a minute, then open your <a href="gallery.html">Gallery page</a> and refresh. Your new photos are live.</li>
+        </ol>
+        <p style="margin-top:8px;color:var(--ink-soft);">Your gallery categories are:</p>
+        <div class="cats">
+          <span>Weddings</span><span>Birthdays</span><span>Corporate</span><span>Anniversaries</span><span>Surprise Parties</span><span>Burials</span><span>Ushering</span><span>Vendor Management</span>
+        </div>
+      </div>
+
+      <div class="guide-card">
+        <h3>A few tips for the best look</h3>
+        <ol>
+          <li><strong>Name the file after the event.</strong> The file name becomes the caption, so <code>lagos-garden-wedding.jpg</code> reads nicely.</li>
+          <li><strong>Keep photos around 1600 pixels wide and under about 500 KB</strong> so pages stay fast.</li>
+          <li>Landscape and portrait both work. The gallery arranges them for you.</li>
+          <li>To remove a photo, open the same folder, click the photo, then the bin icon, and commit.</li>
+        </ol>
+        <div class="tip">You must view the changes on your live web address, not by opening a file on your computer. The live gallery reads the uploaded photos automatically.</div>
+      </div>
+
+      <div class="guide-card">
+        <h3>Need a hand?</h3>
+        <p style="color:var(--ink-soft);">If anything looks off, message Orion Soft and we will sort it quickly. Everything on your website was built to be easy for you to keep fresh.</p>
+        <p style="margin-top:14px;"><a href="analytics.html" class="btn btn-outline">Back to owner tools</a></p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
