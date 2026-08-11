@@ -1,6 +1,5 @@
-# Events by Luwa — robots.txt
-# Before going live, replace the domain below with your real live URL.
+# Events by Luwa - robots.txt
 User-agent: *
 Allow: /
 
-Sitemap: https://www.eventsbyluwa.com/sitemap.xml
+Sitemap: https://troykennels.github.io/eventsbyluwa/sitemap.xml
