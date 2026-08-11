@@ -232,20 +232,37 @@ if (form) form.addEventListener('submit', (e) => {
     window.EBL_bindLightbox(document);
   }
 
-  // Footer newsletter - UI-only, made honest: opens the visitor's email app
-  // pre-addressed to Events by Luwa (no backend, nothing silently faked).
+  // Footer newsletter - one-tap subscribe. Posts the subscriber straight to
+  // Events by Luwa via FormSubmit (free, no backend). The visitor never has to
+  // open their own email. Falls back to a mailto link only if the request fails.
   var news = document.getElementById('newsletterForm');
   if (news){
     news.addEventListener('submit', function(e){
       e.preventDefault();
       if (!news.checkValidity()){ news.reportValidity(); return; }
       var email = (document.getElementById('newsEmail').value || '').trim();
-      var subject = encodeURIComponent('Newsletter signup');
-      var body = encodeURIComponent('Please add this email to the Events by Luwa newsletter: ' + email);
-      window.location.href = 'mailto:eventsbyluwa22@gmail.com?subject=' + subject + '&body=' + body;
       var done = document.getElementById('newsDone');
-      if (done) done.classList.add('show');
-      news.reset();
+      var btn = news.querySelector('button[type="submit"]');
+      if (btn){ btn.disabled = true; btn.textContent = 'Subscribing'; }
+      fetch('https://formsubmit.co/ajax/eventsbyluwa22@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          _subject: 'New newsletter subscriber',
+          _template: 'table',
+          message: 'New newsletter subscriber: ' + email
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(){
+        if (done){ done.textContent = 'Thank you. You are on the list, we will be in touch with lovely things.'; done.classList.add('show'); }
+        news.reset();
+      })
+      .catch(function(){
+        if (done){ done.innerHTML = 'Almost there. Please email <a href="mailto:eventsbyluwa22@gmail.com" style="color:var(--gold-pale);font-weight:700;">eventsbyluwa22@gmail.com</a> to subscribe.'; done.classList.add('show'); }
+      })
+      .finally(function(){ if (btn){ btn.disabled = false; btn.textContent = 'Subscribe'; } });
     });
   }
 })();
