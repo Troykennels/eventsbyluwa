@@ -442,3 +442,35 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
     else window.location.href = 'contact.html';
   });
 })();
+
+// ---- Package matcher (retention): three taps recommend Silver/Gold/Diamond ----
+(function(){
+  var mx = document.getElementById('matcher'); if (!mx) return;
+  var ans = {}, WA = '447823683189';
+  function pick(){
+    if (Object.keys(ans).length < 3) return;
+    var rec = (ans.q3 === 'yes') ? 'Diamond' : (ans.q1 === 'yes' && ans.q2 !== 'no') ? 'Silver' : 'Gold';
+    var card = null;
+    document.querySelectorAll('.pkg-card').forEach(function(c){
+      var n = c.querySelector('.pkg-name');
+      var isRec = n && n.textContent.trim() === rec;
+      c.classList.toggle('match', isRec);
+      if (isRec) card = c;
+    });
+    var link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Events by Luwa, the ' + rec + ' package looks like my fit. I would like to book a consultation.');
+    var res = document.getElementById('matcherResult');
+    res.hidden = false;
+    res.innerHTML = 'Your best fit looks like the <strong>' + rec + '</strong> package.' +
+      '<div style="margin-top:14px;"><a class="btn btn-primary" href="' + link + '" target="_blank" rel="noopener">This looks like my fit</a></div>';
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  mx.querySelectorAll('.matcher-row').forEach(function(row){
+    var q = row.getAttribute('data-q');
+    row.querySelectorAll('.matcher-opts button').forEach(function(b){
+      b.addEventListener('click', function(){
+        row.querySelectorAll('.matcher-opts button').forEach(function(x){ x.classList.remove('sel'); });
+        b.classList.add('sel'); ans[q] = b.getAttribute('data-v'); pick();
+      });
+    });
+  });
+})();
