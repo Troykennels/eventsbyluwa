@@ -127,6 +127,22 @@ if (form) form.addEventListener('submit', (e) => {
   // Fire synchronously inside the click gesture so the browser allows it.
   const wa = window.open(waLink, '_blank', 'noopener');
 
+  // Background: email a copy to Events by Luwa and auto-reply to the enquirer,
+  // so a lead is captured even if the visitor never taps send in WhatsApp.
+  try {
+    fetch('https://formsubmit.co/ajax/eventsbyluwa22@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: name, email: val('email'), phone: val('phone'), event: val('eventType'),
+        date: val('eventDate'), guests: val('guests'), budget: val('budget'), details: val('message'),
+        _subject: 'New event enquiry from ' + (name || 'the website'),
+        _template: 'table',
+        _autoresponse: 'Thank you for reaching out to Events by Luwa. We have received your enquiry and will reply personally, usually within a few hours. Warm regards, the Events by Luwa team.'
+      })
+    }).catch(function(){});
+  } catch (err) {}
+
   setTimeout(() => {
     var note = wa
       ? "We've opened WhatsApp with your details. Just tap <strong>send</strong> and we'll take it from there. We reply personally, usually within a few hours."
@@ -291,6 +307,7 @@ if (form) form.addEventListener('submit', (e) => {
           '<div class="field"><label for="bkName">Your name</label><input id="bkName" type="text" required autocomplete="name"></div>' +
           '<div class="field"><label for="bkPhone">Phone</label><input id="bkPhone" type="tel" autocomplete="tel"></div>' +
         '</div>' +
+        '<div class="field"><label for="bkEmail">Email</label><input id="bkEmail" type="email" autocomplete="email"></div>' +
         '<div class="field"><label for="bkBudget">Budget (optional)</label><input id="bkBudget" type="text" placeholder="e.g. 5,000"></div>' +
         '<div class="field"><label for="bkNotes">Anything else</label><textarea id="bkNotes" placeholder="Your vision, venue or questions"></textarea></div>' +
         '<button type="submit" class="btn btn-primary" style="width:100%;">Send on WhatsApp</button>' +
@@ -329,11 +346,18 @@ if (form) form.addEventListener('submit', (e) => {
       v('#bkDate')   ? 'Preferred date: ' + v('#bkDate') : '',
       v('#bkGuests') ? 'Guests: ' + v('#bkGuests') : '',
       v('#bkPhone')  ? 'Phone: ' + v('#bkPhone') : '',
+      v('#bkEmail')  ? 'Email: ' + v('#bkEmail') : '',
       v('#bkBudget') ? 'Budget: ' + v('#bkBudget') : '',
       v('#bkNotes')  ? 'Notes: ' + v('#bkNotes') : ''
     ].filter(function(l){ return l !== ''; });
     var link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n'));
     var w = window.open(link, '_blank', 'noopener');
+    // Background: capture the booking to email, and auto-reply if an email was given
+    try {
+      var payload = { name: v('#bkName'), event: v('#bkService'), date: v('#bkDate'), guests: v('#bkGuests'), phone: v('#bkPhone'), email: v('#bkEmail'), budget: v('#bkBudget'), notes: v('#bkNotes'), _subject: 'New booking request from ' + (v('#bkName') || 'the website'), _template: 'table' };
+      if (v('#bkEmail')) payload._autoresponse = 'Thank you for your booking request with Events by Luwa. We have received it and will reply personally, usually within a few hours. Warm regards, the Events by Luwa team.';
+      fetch('https://formsubmit.co/ajax/' + EMAIL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).catch(function(){});
+    } catch (err) {}
     var done = m.querySelector('#bkDone');
     done.innerHTML = w
       ? 'Wonderful. We have opened WhatsApp with your details. Just tap send and we will take it from there.'
