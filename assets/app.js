@@ -129,7 +129,7 @@ if (form) form.addEventListener('submit', (e) => {
 
   setTimeout(() => {
     var note = wa
-      ? 'We’ve opened WhatsApp with your details. Just tap <strong>send</strong> and we’ll take it from there. We reply personally, usually within a few hours.'
+      ? "We've opened WhatsApp with your details. Just tap <strong>send</strong> and we'll take it from there. We reply personally, usually within a few hours."
       : 'Your enquiry is ready. <a href="' + waLink + '" target="_blank" rel="noopener" style="color:var(--teal-deep);font-weight:700;text-decoration:underline;">Tap to send it on WhatsApp</a>, or email <a href="mailto:' + ENQUIRY_EMAIL + '" style="color:var(--teal-deep);font-weight:700;text-decoration:underline;">' + ENQUIRY_EMAIL + '</a>.';
     formMsg.innerHTML =
       '<div style="display:flex;gap:13px;align-items:flex-start;text-align:left;">' +
