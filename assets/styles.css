@@ -792,3 +792,15 @@ body.menu-open{overflow:hidden;}
 .matcher-result{margin-top:var(--sp-4);padding-top:var(--sp-4);border-top:1px solid var(--line);text-align:center;color:var(--ink-soft);}
 .matcher-result strong{font-family:'Playfair Display',serif;color:var(--teal-deep);font-size:1.2rem;}
 .pkg-card.match{border-color:var(--gold);box-shadow:var(--shadow-2);}
+
+/* ============ cookie consent (only shows when analytics is switched on) ============ */
+.consent-bar{position:fixed;left:16px;right:16px;bottom:16px;z-index:9990;max-width:540px;margin:0 auto;
+  background:var(--ink);color:#fff;border-radius:var(--radius-m);box-shadow:var(--shadow-2);
+  padding:16px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.9rem;}
+.consent-bar p{flex:1 1 240px;color:rgba(255,255,255,.9);margin:0;}
+.consent-bar a{color:var(--gold-pale);text-decoration:underline;}
+.consent-bar .cc-btns{display:flex;gap:8px;flex:0 0 auto;}
+.consent-bar button{padding:9px 16px;border-radius:999px;font-weight:600;font-size:.85rem;border:1px solid transparent;cursor:pointer;}
+.consent-bar .cc-accept{background:var(--gold);color:var(--ink);}
+.consent-bar .cc-decline{background:transparent;color:#fff;border-color:rgba(255,255,255,.35);}
+@media (max-width:900px){ .consent-bar{bottom:86px;} }

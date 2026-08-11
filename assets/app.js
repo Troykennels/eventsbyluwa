@@ -474,3 +474,30 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
     });
   });
 })();
+
+// ---- Cookie consent + privacy-first analytics ----
+// Dormant until a Measurement ID is set below. Set GA_ID to your GA4 id
+// (looks like G-XXXXXXXXXX) to switch analytics on. No cookies until then.
+(function(){
+  var GA_ID = ''; // <-- paste your Google Analytics 4 Measurement ID here to enable analytics
+  if (!GA_ID) return;
+  function loadGA(){
+    var s = document.createElement('script'); s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag; gtag('js', new Date()); gtag('config', GA_ID, { anonymize_ip: true });
+  }
+  var c = null; try { c = localStorage.getItem('ebl_consent'); } catch (e) {}
+  if (c === 'granted'){ loadGA(); return; }
+  if (c === 'denied'){ return; }
+  var bar = document.createElement('div');
+  bar.className = 'consent-bar'; bar.setAttribute('role', 'dialog'); bar.setAttribute('aria-label', 'Cookie choice');
+  bar.innerHTML = '<p>We use a little analytics to see which pages people love, so we can keep improving. Is that okay? See our <a href="privacy.html">Privacy Policy</a>.</p>' +
+    '<div class="cc-btns"><button type="button" class="cc-decline">No thanks</button><button type="button" class="cc-accept">Yes, that is fine</button></div>';
+  document.body.appendChild(bar);
+  function done(v){ try { localStorage.setItem('ebl_consent', v); } catch (e) {} if (bar.parentNode) bar.parentNode.removeChild(bar); if (v === 'granted') loadGA(); }
+  bar.querySelector('.cc-accept').addEventListener('click', function(){ done('granted'); });
+  bar.querySelector('.cc-decline').addEventListener('click', function(){ done('denied'); });
+})();
