@@ -13,12 +13,19 @@ window.addEventListener('scroll', () => {
 const menuToggle = document.getElementById('menuToggle');
 const mobilePanel = document.getElementById('mobilePanel');
 const mobileClose = document.getElementById('mobileClose');
-function closeMenu(){ if (mobilePanel) mobilePanel.classList.remove('open'); if (menuToggle) menuToggle.setAttribute('aria-expanded','false'); }
+function closeMenu(){
+  if (mobilePanel) mobilePanel.classList.remove('open');
+  document.body.classList.remove('menu-open');
+  if (menuToggle){ menuToggle.setAttribute('aria-expanded','false'); menuToggle.focus(); }
+}
 if (menuToggle && mobilePanel){
   menuToggle.addEventListener('click', () => {
     const open = mobilePanel.classList.toggle('open');
+    document.body.classList.toggle('menu-open', open);
     menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && mobileClose) mobileClose.focus();
   });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobilePanel.classList.contains('open')) closeMenu(); });
 }
 if (mobileClose) mobileClose.addEventListener('click', closeMenu);
 if (mobilePanel) mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
@@ -53,27 +60,33 @@ reveals.forEach(el => ro.observe(el));
 document.querySelectorAll('.faq-item').forEach(item => {
   const q = item.querySelector('.faq-q');
   const a = item.querySelector('.faq-a');
+  if (!q || !a) return;
+  q.setAttribute('aria-expanded', 'false');
   q.addEventListener('click', () => {
     const isOpen = item.classList.contains('open');
     document.querySelectorAll('.faq-item.open').forEach(other => {
       other.classList.remove('open');
-      other.querySelector('.faq-a').style.maxHeight = null;
+      const oa = other.querySelector('.faq-a'); if (oa) oa.style.maxHeight = null;
+      const oq = other.querySelector('.faq-q'); if (oq) oq.setAttribute('aria-expanded', 'false');
     });
     if (!isOpen){
       item.classList.add('open');
       a.style.maxHeight = a.scrollHeight + 'px';
+      q.setAttribute('aria-expanded', 'true');
     }
   });
 });
 
 // gallery filter (visual only - categories are illustrative until real photos are added)
 document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+    btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
     const cat = btn.textContent.trim();
     document.querySelectorAll('.gal-item').forEach(item => {
-      const tag = item.querySelector('.gtag').textContent.trim();
+      const tagEl = item.querySelector('.gtag');
+      const tag = tagEl ? tagEl.textContent.trim() : '';
       item.style.display = (cat === 'All' || tag === cat) ? '' : 'none';
     });
   });
@@ -174,12 +187,18 @@ if (form) form.addEventListener('submit', (e) => {
     }
   }
 
-  // Loading screen - dismiss on load, with a hard safety cap
+  // Loading screen: show once per session only, then dismiss fast (no fake delay on every click)
   var loader = document.getElementById('loader');
+  try {
+    if (sessionStorage.getItem('ebl_seen') && loader) { if (loader.parentNode) loader.parentNode.removeChild(loader); loader = null; }
+    else { sessionStorage.setItem('ebl_seen', '1'); }
+  } catch (e) {}
   function hideLoader(){ if (loader) loader.classList.add('done'); }
-  if (document.readyState === 'complete') hideLoader();
-  else window.addEventListener('load', hideLoader);
-  setTimeout(hideLoader, 1800);
+  if (loader) {
+    if (document.readyState === 'complete') hideLoader();
+    else window.addEventListener('load', hideLoader);
+    setTimeout(hideLoader, 900);
+  }
 
   // Gallery lightbox - works the moment a tile holds a real <img>; dormant for gradient placeholders
   var lb = document.getElementById('lightbox');
@@ -261,7 +280,13 @@ if (form) form.addEventListener('submit', (e) => {
   var lastFocus = null;
   function open(service){
     var sel = m.querySelector('#bkService');
-    if (service){ for (var i=0;i<sel.options.length;i++){ if (sel.options[i].value.toLowerCase() === service.toLowerCase()){ sel.selectedIndex=i; break; } } }
+    if (service){
+      var key = service.toLowerCase().split(/[^a-z]+/)[0].slice(0,5);
+      for (var i=0;i<sel.options.length;i++){
+        var ok = sel.options[i].value.toLowerCase().split(/[^a-z]+/)[0].slice(0,5);
+        if (ok && key && ok === key){ sel.selectedIndex=i; break; }
+      }
+    }
     lastFocus = document.activeElement;
     m.classList.add('open'); m.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
@@ -313,3 +338,6 @@ if (form) form.addEventListener('submit', (e) => {
 
 // ---- PWA: installable + offline (network-first, never stale) ----
 if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("/eventsbyluwa/sw.js").catch(function(){}); }); }
+
+// No past dates on any date picker (enquiry + booking modal)
+(function(){ try { var t = new Date().toISOString().split('T')[0]; document.querySelectorAll('input[type=date]').forEach(function(d){ d.min = t; }); } catch (e) {} })();
