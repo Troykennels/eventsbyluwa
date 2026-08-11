@@ -1,0 +1,23 @@
+{
+  "name": "Events by Luwa",
+  "short_name": "Events by Luwa",
+  "description": "Premium event planning and coordination. Creating beautiful magic with your event since 2017.",
+  "start_url": "/eventsbyluwa/",
+  "scope": "/eventsbyluwa/",
+  "display": "standalone",
+  "background_color": "#FBF6EE",
+  "theme_color": "#FBF6EE",
+  "icons": [
+    {
+      "src": "brand/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "brand/logo.png",
+      "sizes": "249x190",
+      "type": "image/png"
+    }
+  ]
+}

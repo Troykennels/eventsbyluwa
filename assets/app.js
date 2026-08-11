@@ -309,3 +309,7 @@ if (form) form.addEventListener('submit', (e) => {
   });
   window.EBL_openBooking = open;
 })();
+
+
+// ---- PWA: installable + offline (network-first, never stale) ----
+if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("/eventsbyluwa/sw.js").catch(function(){}); }); }
