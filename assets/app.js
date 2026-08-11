@@ -109,7 +109,7 @@ if (form) form.addEventListener('submit', (e) => {
   const waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + text;
 
   const btn = form.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = 'Opening WhatsApp...';
+  btn.disabled = true; btn.textContent = 'Opening WhatsApp';
 
   // Fire synchronously inside the click gesture so the browser allows it.
   const wa = window.open(waLink, '_blank', 'noopener');
