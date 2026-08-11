@@ -226,3 +226,86 @@ if (form) form.addEventListener('submit', (e) => {
     });
   }
 })();
+
+// ---- Booking modal (progressive enhancement: CTAs still navigate without JS) ----
+(function(){
+  var WA = '447823683189', EMAIL = 'eventsbyluwa22@gmail.com';
+  var services = ['Wedding','Birthday','Corporate Event','Anniversary','Surprise Party','Burial','Vendor Management','Ushering','Other'];
+  var m = document.createElement('div');
+  m.className = 'booking-modal';
+  m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true');
+  m.setAttribute('aria-label','Book a free consultation'); m.setAttribute('aria-hidden','true');
+  var opts = services.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
+  m.innerHTML =
+    '<div class="booking-card">' +
+      '<div class="booking-head"><div><h3>Book a free consultation</h3>' +
+      '<p>Tell us a little about your event and we will reply personally, usually within a few hours.</p></div>' +
+      '<button type="button" class="booking-close" aria-label="Close">&times;</button></div>' +
+      '<form class="booking-form" novalidate>' +
+        '<div class="field"><label for="bkService">Type of event</label><select id="bkService" required>'+opts+'</select></div>' +
+        '<div class="form-row">' +
+          '<div class="field"><label for="bkDate">Preferred date</label><input id="bkDate" type="date"></div>' +
+          '<div class="field"><label for="bkGuests">Guests (approx.)</label><input id="bkGuests" type="number" min="1"></div>' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="field"><label for="bkName">Your name</label><input id="bkName" type="text" required autocomplete="name"></div>' +
+          '<div class="field"><label for="bkPhone">Phone</label><input id="bkPhone" type="tel" autocomplete="tel"></div>' +
+        '</div>' +
+        '<div class="field"><label for="bkBudget">Budget (optional)</label><input id="bkBudget" type="text" placeholder="e.g. 5,000"></div>' +
+        '<div class="field"><label for="bkNotes">Anything else</label><textarea id="bkNotes" placeholder="Your vision, venue or questions"></textarea></div>' +
+        '<button type="submit" class="btn btn-primary" style="width:100%;">Send on WhatsApp</button>' +
+        '<div class="booking-msg" id="bkDone"></div>' +
+      '</form>' +
+    '</div>';
+  document.body.appendChild(m);
+  var lastFocus = null;
+  function open(service){
+    var sel = m.querySelector('#bkService');
+    if (service){ for (var i=0;i<sel.options.length;i++){ if (sel.options[i].value.toLowerCase() === service.toLowerCase()){ sel.selectedIndex=i; break; } } }
+    lastFocus = document.activeElement;
+    m.classList.add('open'); m.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ var n=m.querySelector('#bkName'); if(n) n.focus(); }, 60);
+  }
+  function close(){ m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  m.querySelector('.booking-close').addEventListener('click', close);
+  m.addEventListener('click', function(e){ if (e.target === m) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && m.classList.contains('open')) close(); });
+  m.querySelector('.booking-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nameEl = m.querySelector('#bkName');
+    if (!nameEl.value.trim()){ nameEl.reportValidity(); return; }
+    var v = function(id){ var el=m.querySelector(id); return el ? (el.value||'').trim() : ''; };
+    var lines = [
+      'Hello Events by Luwa, I would like to book a consultation.', '',
+      'Name: ' + v('#bkName'),
+      'Event: ' + v('#bkService'),
+      v('#bkDate')   ? 'Preferred date: ' + v('#bkDate') : '',
+      v('#bkGuests') ? 'Guests: ' + v('#bkGuests') : '',
+      v('#bkPhone')  ? 'Phone: ' + v('#bkPhone') : '',
+      v('#bkBudget') ? 'Budget: ' + v('#bkBudget') : '',
+      v('#bkNotes')  ? 'Notes: ' + v('#bkNotes') : ''
+    ].filter(function(l){ return l !== ''; });
+    var link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n'));
+    var w = window.open(link, '_blank', 'noopener');
+    var done = m.querySelector('#bkDone');
+    done.innerHTML = w
+      ? 'Wonderful. We have opened WhatsApp with your details. Just tap send and we will take it from there.'
+      : 'Your request is ready. <a href="' + link + '" target="_blank" rel="noopener" style="color:#0A5C52;font-weight:700;">Tap to send on WhatsApp</a> or email <a href="mailto:' + EMAIL + '" style="color:#0A5C52;font-weight:700;">' + EMAIL + '</a>.';
+    done.classList.add('show');
+  });
+  // Booking-intent CTAs open the modal (href stays as the no-JS fallback)
+  document.querySelectorAll('a.btn').forEach(function(a){
+    var t = a.textContent.trim().toLowerCase();
+    if (t.indexOf('book') > -1 || t.indexOf('plan your event') > -1 || t.indexOf('consultation') > -1){
+      a.addEventListener('click', function(e){ e.preventDefault(); open(); });
+    }
+  });
+  // Whole service card opens booking pre-set to that service
+  document.querySelectorAll('.svc-card').forEach(function(card){
+    var link = card.querySelector('.svc-link'); if (!link) return;
+    var svc = (card.querySelector('h3') || {}).textContent || '';
+    link.addEventListener('click', function(e){ e.preventDefault(); open(svc.trim()); });
+  });
+  window.EBL_openBooking = open;
+})();
