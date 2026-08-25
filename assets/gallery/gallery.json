@@ -1,1 +1,102 @@
-[]
+[
+  {
+    "src": "assets/gallery/anniversaries/beach-anniversary-portrait.jpeg",
+    "category": "Anniversaries",
+    "alt": "Beach Anniversary Portrait - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/burials/funeral-service-officiants.jpeg",
+    "category": "Burials",
+    "alt": "Funeral Service Officiants - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/burials/military-honors-flag-draped-casket.jpeg",
+    "category": "Burials",
+    "alt": "Military Honors Flag Draped Casket - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/ushering/ushering-team-blue-aso-ebi.jpeg",
+    "category": "Ushering",
+    "alt": "Ushering Team Blue Aso Ebi - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/ushering/ushering-team-portrait.jpeg",
+    "category": "Ushering",
+    "alt": "Ushering Team Portrait - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/grilled-fish-tray-service.jpeg",
+    "category": "Vendor Management",
+    "alt": "Grilled Fish Tray Service - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/guest-place-card-setting.jpeg",
+    "category": "Vendor Management",
+    "alt": "Guest Place Card Setting - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/plated-meal-service.jpeg",
+    "category": "Vendor Management",
+    "alt": "Plated Meal Service - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/reception-hall-floral-decor.jpeg",
+    "category": "Vendor Management",
+    "alt": "Reception Hall Floral Decor - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/seafood-platter-catering.jpeg",
+    "category": "Vendor Management",
+    "alt": "Seafood Platter Catering - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/seafood-tray-refreshments.jpeg",
+    "category": "Vendor Management",
+    "alt": "Seafood Tray Refreshments - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/small-chops-catering-display.jpeg",
+    "category": "Vendor Management",
+    "alt": "Small Chops Catering Display - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/vendor-management/table-setting-place-card.jpeg",
+    "category": "Vendor Management",
+    "alt": "Table Setting Place Card - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/bride-bouquet-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Bouquet Portrait - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/bride-grand-entrance-crowd.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Grand Entrance Crowd - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-doorway-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Doorway Portrait - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-hotel-hallway.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Hotel Hallway - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/bridesmaids-getting-ready.jpeg",
+    "category": "Weddings",
+    "alt": "Bridesmaids Getting Ready - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/couple-evening-reception-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Couple Evening Reception Portrait - Events by Luwa"
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-cake-monogram-topper.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Cake Monogram Topper - Events by Luwa"
+  }
+]
