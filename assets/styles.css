@@ -368,13 +368,18 @@ p{margin:0;}
 .gal-item{
   break-inside:avoid;margin-bottom:16px;border-radius:var(--radius-m);overflow:hidden;
   position:relative;box-shadow:var(--shadow-1);
-  display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.9);
   transition:transform .3s ease, box-shadow .3s ease;
 }
 .gal-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);}
 .gal-item .gtag{position:absolute;bottom:10px;left:12px;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;background:rgba(0,0,0,0.32);padding:5px 10px;border-radius:999px;}
 .gal-item svg{width:26px;height:26px;opacity:0.85;}
+/* Placeholder tiles (no photo yet) still need a fixed height + centered icon;
+   real photo tiles override both below so each image keeps its own natural
+   aspect ratio in the masonry columns instead of being cropped into a box
+   that has nothing to do with its actual shape. */
+.gal-item:not(:has(img)){display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.9);}
 .h1_{height:260px;} .h2_{height:190px;} .h3_{height:150px;} .h4_{height:220px;}
+.gal-item:has(img){height:auto;}
 
 .gallery-note{
   margin-top:var(--sp-4);text-align:center;color:var(--ink-soft);font-size:0.9rem;
@@ -662,12 +667,29 @@ body.loaded .lattice{animation:floatIn 1.2s var(--ease-soft) .28s both;}
 /* - gallery lightbox (activates when tiles hold real images) - */
 .lightbox{position:fixed;inset:0;z-index:9998;background:rgba(27,24,21,.92);
   display:flex;align-items:center;justify-content:center;padding:24px;
-  opacity:0;visibility:hidden;transition:opacity .35s var(--ease-soft), visibility .35s;}
+  opacity:0;visibility:hidden;transition:opacity .35s var(--ease-soft), visibility .35s;
+  touch-action:pan-y;}
 .lightbox.open{opacity:1;visibility:visible;}
-.lightbox img{max-width:92vw;max-height:86vh;border-radius:var(--radius-m);box-shadow:var(--shadow-2);}
+.lb-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:92vw;}
+.lightbox img{max-width:92vw;max-height:82vh;border-radius:var(--radius-m);box-shadow:var(--shadow-2);
+  user-select:none;-webkit-user-drag:none;}
+.lightbox.swiping img{transition:none;}
+.lb-count{color:rgba(255,255,255,.75);font-size:0.82rem;letter-spacing:0.04em;}
 .lightbox .lb-close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:50%;
   border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-size:1.4rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;}
+  display:flex;align-items:center;justify-content:center;z-index:2;}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s ease, opacity .2s ease;z-index:2;}
+.lb-nav:hover{background:rgba(255,255,255,.24);}
+.lb-nav svg{width:22px;height:22px;}
+.lb-prev{left:16px;} .lb-next{right:16px;}
+.lb-nav[hidden]{display:none;}
+@media (max-width:640px){
+  .lb-nav{width:40px;height:40px;}
+  .lb-prev{left:6px;} .lb-next{right:6px;}
+  .lightbox .lb-close{top:12px;right:12px;}
+}
 
 @media (prefers-reduced-motion:reduce){
   #loader{animation:none;display:none !important;}
@@ -761,8 +783,8 @@ body.pre-load .hero-eyebrow,body.pre-load .hero h1,body.pre-load .hero-sub,body.
 
 body.menu-open{overflow:hidden;}
 
-/* gallery photos: stable box, no layout shift */
-.gal-item img{width:100%;height:100%;object-fit:cover;display:block;}
+/* gallery photos: full frame, own aspect ratio - true masonry, nothing cropped */
+.gal-item img{width:100%;height:auto;display:block;}
 .gal-item figcaption.gtag{position:absolute;bottom:10px;left:12px;}
 
 /* ============ sticky mobile booking bar (mobile conversion) ============ */

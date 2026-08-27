@@ -216,15 +216,74 @@ if (form) form.addEventListener('submit', (e) => {
     setTimeout(hideLoader, 900);
   }
 
-  // Gallery lightbox - works the moment a tile holds a real <img>; dormant for gradient placeholders
+  // Gallery lightbox - works the moment a tile holds a real <img>; dormant for
+  // gradient placeholders. Swipeable/arrow-navigable through whichever photos
+  // are currently visible in that grid (i.e. scoped to the active category
+  // filter - "swipe through a section" rather than the whole gallery at once).
   var lb = document.getElementById('lightbox');
   var lbImg = lb ? lb.querySelector('img') : null;
   var lbClose = document.getElementById('lbClose');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+  var lbCount = document.getElementById('lbCount');
   if (lb && lbImg){
-    var closeLb = function(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); lbImg.src = ''; };
+    var visibleSet = [];   // <img> elements currently swipeable through
+    var visibleIdx = 0;
+
+    function setSlide(i){
+      if (!visibleSet.length) return;
+      visibleIdx = (i + visibleSet.length) % visibleSet.length;
+      var img = visibleSet[visibleIdx];
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || 'Events by Luwa event';
+      if (lbCount) lbCount.textContent = visibleSet.length > 1 ? (visibleIdx + 1) + ' / ' + visibleSet.length : '';
+      var multi = visibleSet.length > 1;
+      if (lbPrev) lbPrev.hidden = !multi;
+      if (lbNext) lbNext.hidden = !multi;
+    }
+    var goPrev = function(){ setSlide(visibleIdx - 1); };
+    var goNext = function(){ setSlide(visibleIdx + 1); };
+
+    var closeLb = function(){
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = ''; visibleSet = [];
+    };
     if (lbClose) lbClose.addEventListener('click', closeLb);
+    if (lbPrev) lbPrev.addEventListener('click', goPrev);
+    if (lbNext) lbNext.addEventListener('click', goNext);
     lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      else if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'ArrowRight') goNext();
+    });
+
+    // Touch swipe: the image follows the finger, then either completes the
+    // swipe to the next/prev photo or springs back if the drag was too short.
+    var touchStartX = 0, touchDeltaX = 0, dragging = false;
+    lb.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX; touchDeltaX = 0; dragging = true;
+      lb.classList.add('swiping');
+    }, {passive:true});
+    lb.addEventListener('touchmove', function(e){
+      if (!dragging) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      lbImg.style.transform = 'translateX(' + touchDeltaX + 'px)';
+      lbImg.style.opacity = String(Math.max(0.4, 1 - Math.abs(touchDeltaX) / 400));
+    }, {passive:true});
+    lb.addEventListener('touchend', function(){
+      if (!dragging) return;
+      dragging = false;
+      lb.classList.remove('swiping');
+      lbImg.style.transform = ''; lbImg.style.opacity = '';
+      var THRESHOLD = 55;
+      if (touchDeltaX > THRESHOLD) goPrev();
+      else if (touchDeltaX < -THRESHOLD) goNext();
+      touchDeltaX = 0;
+    });
+
     // Reusable so dynamically-loaded photos become clickable too. Idempotent.
     window.EBL_bindLightbox = function(scope){
       (scope || document).querySelectorAll('.gal-item').forEach(function(item){
@@ -236,9 +295,13 @@ if (form) form.addEventListener('submit', (e) => {
         item.setAttribute('role', 'button');
         item.setAttribute('tabindex', '0');
         var openLb = function(){
-          lbImg.src = img.currentSrc || img.src;
-          lbImg.alt = img.alt || 'Events by Luwa event';
+          var grid = item.closest('[data-gallery]') || document;
+          visibleSet = Array.prototype.filter.call(grid.querySelectorAll('.gal-item'), function(it){
+            return it.style.display !== 'none' && it.querySelector('img');
+          }).map(function(it){ return it.querySelector('img'); });
+          var startIdx = visibleSet.indexOf(img);
           lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+          setSlide(startIdx >= 0 ? startIdx : 0);
           if (lbClose) lbClose.focus();
         };
         item.addEventListener('click', openLb);
@@ -396,12 +459,14 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
     .then(function(r){ return r.ok ? r.json() : []; })
     .then(function(items){
       if (!items || !items.length) return; // graceful fallback: keep placeholders
-      var SIZES = ['h1_','h2_','h3_','h4_'];
       var cats = ['All'];
       items.forEach(function(it){ if (it.category && cats.indexOf(it.category) < 0) cats.push(it.category); });
       grids.forEach(function(grid){
-        grid.innerHTML = items.map(function(it,i){
-          return '<figure class="gal-item ' + SIZES[i%4] + '">' +
+        // No forced h1_-h4_ height class here - true masonry, each photo
+        // keeps its own aspect ratio instead of being cropped into a box
+        // sized by array index.
+        grid.innerHTML = items.map(function(it){
+          return '<figure class="gal-item">' +
             '<img loading="lazy" decoding="async" src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
             '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
         }).join('');
