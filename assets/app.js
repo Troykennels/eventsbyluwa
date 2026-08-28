@@ -464,10 +464,18 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
       grids.forEach(function(grid){
         // No forced h1_-h4_ height class here - true masonry, each photo
         // keeps its own aspect ratio instead of being cropped into a box
-        // sized by array index.
+        // sized by array index. width/height (from the manifest, when
+        // present) reserve the correct box in the CSS-columns layout before
+        // the lazy-loaded image itself arrives - without them the browser
+        // has no idea how tall a given photo will be, so every card starts
+        // near-collapsed and some never visibly recover once the image does
+        // load, especially several columns deep on a slow connection.
         grid.innerHTML = items.map(function(it){
+          var dims = (it.width && it.height)
+            ? ' width="' + it.width + '" height="' + it.height + '" style="aspect-ratio:' + it.width + '/' + it.height + '"'
+            : '';
           return '<figure class="gal-item">' +
-            '<img loading="lazy" decoding="async" src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
+            '<img loading="lazy" decoding="async"' + dims + ' src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
             '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
         }).join('');
         if (window.EBL_bindLightbox) window.EBL_bindLightbox(grid);

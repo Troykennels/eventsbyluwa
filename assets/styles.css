@@ -246,6 +246,9 @@ p{margin:0;}
 }
 .svc-media svg{width:38px;height:38px;position:relative;z-index:1;}
 .svc-media::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg, rgba(0,0,0,0.05), rgba(0,0,0,0.28));}
+/* Real photo standing in for the gradient+icon placeholder, landscape or
+   portrait both cover the same fixed header height cleanly. */
+.svc-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;}
 .svc-body{padding:var(--sp-5) var(--sp-4);text-align:center;}
 .svc-body h3{font-size:1.2rem;margin-bottom:10px;}
 .svc-body p{color:var(--ink);font-weight:600;font-size:0.93rem;line-height:1.55;margin-bottom:var(--sp-3);}
@@ -366,7 +369,10 @@ p{margin:0;}
 @media (max-width:860px){ .masonry{columns:3 180px;} }
 @media (max-width:560px){ .masonry{columns:2 140px;} }
 .gal-item{
-  break-inside:avoid;margin-bottom:16px;border-radius:var(--radius-m);overflow:hidden;
+  /* <figure> has a browser-default 1em/40px margin - reset it explicitly,
+     otherwise 80px of horizontal margin silently eats most of a narrow
+     mobile masonry column (e.g. ~185px down to ~85px of actual image). */
+  break-inside:avoid;margin:0 0 16px;border-radius:var(--radius-m);overflow:hidden;
   position:relative;box-shadow:var(--shadow-1);
   transition:transform .3s ease, box-shadow .3s ease;
 }

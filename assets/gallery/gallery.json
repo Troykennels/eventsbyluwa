@@ -2,101 +2,218 @@
   {
     "src": "assets/gallery/anniversaries/beach-anniversary-portrait.jpeg",
     "category": "Anniversaries",
-    "alt": "Beach Anniversary Portrait - Events by Luwa"
+    "alt": "Beach Anniversary Portrait - Events by Luwa",
+    "width": 1600,
+    "height": 2134
   },
   {
     "src": "assets/gallery/burials/funeral-service-officiants.jpeg",
     "category": "Burials",
-    "alt": "Funeral Service Officiants - Events by Luwa"
+    "alt": "Funeral Service Officiants - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/burials/military-honors-flag-draped-casket.jpeg",
     "category": "Burials",
-    "alt": "Military Honors Flag Draped Casket - Events by Luwa"
+    "alt": "Military Honors Flag Draped Casket - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/surprise-parties/celebration-dance-bubbles.jpeg",
+    "category": "Surprise Parties",
+    "alt": "Celebration Dance Bubbles - Events by Luwa",
+    "width": 3600,
+    "height": 2400
   },
   {
     "src": "assets/gallery/ushering/ushering-team-blue-aso-ebi.jpeg",
     "category": "Ushering",
-    "alt": "Ushering Team Blue Aso Ebi - Events by Luwa"
+    "alt": "Ushering Team Blue Aso Ebi - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/ushering/ushering-team-group-portrait.jpeg",
+    "category": "Ushering",
+    "alt": "Ushering Team Group Portrait - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/ushering/ushering-team-portrait.jpeg",
     "category": "Ushering",
-    "alt": "Ushering Team Portrait - Events by Luwa"
+    "alt": "Ushering Team Portrait - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/grilled-fish-tray-service.jpeg",
     "category": "Vendor Management",
-    "alt": "Grilled Fish Tray Service - Events by Luwa"
+    "alt": "Grilled Fish Tray Service - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/guest-place-card-setting.jpeg",
     "category": "Vendor Management",
-    "alt": "Guest Place Card Setting - Events by Luwa"
+    "alt": "Guest Place Card Setting - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/plated-meal-service.jpeg",
     "category": "Vendor Management",
-    "alt": "Plated Meal Service - Events by Luwa"
+    "alt": "Plated Meal Service - Events by Luwa",
+    "width": 1600,
+    "height": 1067
   },
   {
     "src": "assets/gallery/vendor-management/reception-hall-floral-decor.jpeg",
     "category": "Vendor Management",
-    "alt": "Reception Hall Floral Decor - Events by Luwa"
+    "alt": "Reception Hall Floral Decor - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/seafood-platter-catering.jpeg",
     "category": "Vendor Management",
-    "alt": "Seafood Platter Catering - Events by Luwa"
+    "alt": "Seafood Platter Catering - Events by Luwa",
+    "width": 1600,
+    "height": 1067
   },
   {
     "src": "assets/gallery/vendor-management/seafood-tray-refreshments.jpeg",
     "category": "Vendor Management",
-    "alt": "Seafood Tray Refreshments - Events by Luwa"
+    "alt": "Seafood Tray Refreshments - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/small-chops-catering-display.jpeg",
     "category": "Vendor Management",
-    "alt": "Small Chops Catering Display - Events by Luwa"
+    "alt": "Small Chops Catering Display - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/vendor-management/table-setting-place-card.jpeg",
     "category": "Vendor Management",
-    "alt": "Table Setting Place Card - Events by Luwa"
+    "alt": "Table Setting Place Card - Events by Luwa",
+    "width": 1600,
+    "height": 1067
+  },
+  {
+    "src": "assets/gallery/weddings/bridal-shoes-bouquet-rings.jpeg",
+    "category": "Weddings",
+    "alt": "Bridal Shoes Bouquet Rings - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/weddings/bride-bouquet-portrait.jpeg",
     "category": "Weddings",
-    "alt": "Bride Bouquet Portrait - Events by Luwa"
+    "alt": "Bride Bouquet Portrait - Events by Luwa",
+    "width": 681,
+    "height": 1024
   },
   {
     "src": "assets/gallery/weddings/bride-grand-entrance-crowd.jpeg",
     "category": "Weddings",
-    "alt": "Bride Grand Entrance Crowd - Events by Luwa"
+    "alt": "Bride Grand Entrance Crowd - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   },
   {
     "src": "assets/gallery/weddings/bride-groom-doorway-portrait.jpeg",
     "category": "Weddings",
-    "alt": "Bride Groom Doorway Portrait - Events by Luwa"
+    "alt": "Bride Groom Doorway Portrait - Events by Luwa",
+    "width": 1280,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-hallway-candid.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Hallway Candid - Events by Luwa",
+    "width": 701,
+    "height": 1024
   },
   {
     "src": "assets/gallery/weddings/bride-groom-hotel-hallway.jpeg",
     "category": "Weddings",
-    "alt": "Bride Groom Hotel Hallway - Events by Luwa"
+    "alt": "Bride Groom Hotel Hallway - Events by Luwa",
+    "width": 1280,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-staircase-portrait-bw.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Staircase Portrait Bw - Events by Luwa",
+    "width": 1280,
+    "height": 1600
   },
   {
     "src": "assets/gallery/weddings/bridesmaids-getting-ready.jpeg",
     "category": "Weddings",
-    "alt": "Bridesmaids Getting Ready - Events by Luwa"
+    "alt": "Bridesmaids Getting Ready - Events by Luwa",
+    "width": 1066,
+    "height": 1600
   },
   {
     "src": "assets/gallery/weddings/couple-evening-reception-portrait.jpeg",
     "category": "Weddings",
-    "alt": "Couple Evening Reception Portrait - Events by Luwa"
+    "alt": "Couple Evening Reception Portrait - Events by Luwa",
+    "width": 1080,
+    "height": 1350
+  },
+  {
+    "src": "assets/gallery/weddings/groom-traditional-attire-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Traditional Attire Portrait - Events by Luwa",
+    "width": 1066,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-attire-green-couple-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Attire Green Couple Portrait - Events by Luwa",
+    "width": 1594,
+    "height": 2048
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-attire-teal-couple-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Attire Teal Couple Portrait - Events by Luwa",
+    "width": 750,
+    "height": 938
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-money-spray-detail.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Money Spray Detail - Events by Luwa",
+    "width": 750,
+    "height": 938
   },
   {
     "src": "assets/gallery/weddings/wedding-cake-monogram-topper.jpeg",
     "category": "Weddings",
-    "alt": "Wedding Cake Monogram Topper - Events by Luwa"
+    "alt": "Wedding Cake Monogram Topper - Events by Luwa",
+    "width": 1600,
+    "height": 2000
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-first-dance-blue-lights.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding First Dance Blue Lights - Events by Luwa",
+    "width": 750,
+    "height": 938
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-reception-dance-bubbles.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Reception Dance Bubbles - Events by Luwa",
+    "width": 1600,
+    "height": 1066
   }
 ]
