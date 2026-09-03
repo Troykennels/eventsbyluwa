@@ -108,8 +108,8 @@ p{margin:0;}
 }
 .nav.scrolled .brand-badge{width:42px;height:42px;}
 .brand-badge img{width:78%;height:auto;}
-.brand-word{font-family:'Playfair Display',serif;font-weight:600;font-size:1.05rem;letter-spacing:0.02em;color:var(--ink);}
-.brand-word small{display:block;font-family:'Jost',sans-serif;font-weight:500;font-size:0.62rem;letter-spacing:0.24em;color:var(--wine);text-transform:uppercase;}
+.brand-word{font-family:'Playfair Display',serif;font-weight:600;font-size:1.15rem;letter-spacing:0.02em;color:var(--ink);}
+.brand-word small{display:block;font-family:'Jost',sans-serif;font-weight:500;font-size:0.68rem;letter-spacing:0.24em;color:var(--wine);text-transform:uppercase;}
 
 .nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0;}
 .nav-links a{
