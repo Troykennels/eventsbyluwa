@@ -46,6 +46,21 @@ if (backTop) backTop.addEventListener('click', () => window.scrollTo({top:0,beha
   }, 6000);
 })();
 
+// "Our Story" photo frame slideshow (auto-rotates, pauses for reduced-motion users)
+(function(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.story-frame').forEach(function(frame){
+    var slides = frame.querySelectorAll('.story-frame-img');
+    if (slides.length < 2) return;
+    var i = 0;
+    setInterval(function(){
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 5000);
+  });
+})();
+
 // scrollspy (anchor links only - multi-page nav links like about.html are skipped)
 const navLinks = document.querySelectorAll('[data-nav]');
 const sections = Array.from(navLinks).map(l => {
