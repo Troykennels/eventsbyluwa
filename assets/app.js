@@ -506,13 +506,15 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
             '<img loading="lazy" decoding="async"' + dims + ' src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
             '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
         }).join('');
-        // Force a reflow: replacing a large batch of items inside a CSS
-        // multi-column (`columns:`) container can leave the browser's
-        // column-balance stale - the grid stays visually blank until some
-        // later layout change (e.g. a filter click) forces a recompute.
-        grid.style.display = 'none';
+        // Force the CSS multi-column layout to fully re-fragment and repaint.
+        // Replacing a large batch of items inside a `columns:` container can
+        // leave items correctly laid out (clickable) but not actually
+        // painted - invisible until something invalidates the column
+        // fragmentation itself. A generic reflow (e.g. toggling display)
+        // isn't always enough; toggling the column count is.
+        grid.style.columns = '1';
         void grid.offsetHeight;
-        grid.style.display = '';
+        requestAnimationFrame(function(){ grid.style.columns = ''; });
         if (window.EBL_bindLightbox) window.EBL_bindLightbox(grid);
         var section = grid.closest('section');
         var row = section ? section.querySelector('.filter-row') : null;
