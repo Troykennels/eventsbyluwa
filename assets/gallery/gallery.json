@@ -105,6 +105,34 @@
     "height": 1067
   },
   {
+    "src": "assets/gallery/weddings/aso-oke-pink-fan-eyes-closed.jpeg",
+    "category": "Weddings",
+    "alt": "Aso Oke Pink Fan Eyes Closed - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/aso-oke-pink-fan-full-length.jpeg",
+    "category": "Weddings",
+    "alt": "Aso Oke Pink Fan Full Length - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/aso-oke-pink-fan-leaning-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Aso Oke Pink Fan Leaning Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/aso-oke-pink-headshot-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Aso Oke Pink Headshot Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "src": "assets/gallery/weddings/bridal-shoes-bouquet-rings.jpeg",
     "category": "Weddings",
     "alt": "Bridal Shoes Bouquet Rings - Events by Luwa",
@@ -119,6 +147,13 @@
     "height": 1024
   },
   {
+    "src": "assets/gallery/weddings/bride-floral-arch-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Floral Arch Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "src": "assets/gallery/weddings/bride-grand-entrance-crowd.jpeg",
     "category": "Weddings",
     "alt": "Bride Grand Entrance Crowd - Events by Luwa",
@@ -126,10 +161,52 @@
     "height": 1066
   },
   {
+    "src": "assets/gallery/weddings/bride-groom-ballroom-profile-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Ballroom Profile Portrait - Events by Luwa",
+    "width": 1600,
+    "height": 2000
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-ballroom-veil-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Ballroom Veil Portrait - Events by Luwa",
+    "width": 1600,
+    "height": 2000
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-close-dance-blue-lights.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Close Dance Blue Lights - Events by Luwa",
+    "width": 1142,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-confetti-walk.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Confetti Walk - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
     "src": "assets/gallery/weddings/bride-groom-doorway-portrait.jpeg",
     "category": "Weddings",
     "alt": "Bride Groom Doorway Portrait - Events by Luwa",
     "width": 1280,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-fog-dance-pink-lights.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Fog Dance Pink Lights - Events by Luwa",
+    "width": 1144,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-groom-gold-dress-reception-walk.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Groom Gold Dress Reception Walk - Events by Luwa",
+    "width": 1066,
     "height": 1600
   },
   {
@@ -147,255 +224,10 @@
     "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/bride-groom-staircase-portrait-bw.jpeg",
+    "src": "assets/gallery/weddings/bride-groom-piano-arm-in-arm.jpeg",
     "category": "Weddings",
-    "alt": "Bride Groom Staircase Portrait Bw - Events by Luwa",
-    "width": 1280,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bridesmaids-getting-ready.jpeg",
-    "category": "Weddings",
-    "alt": "Bridesmaids Getting Ready - Events by Luwa",
-    "width": 1066,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/couple-evening-reception-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Couple Evening Reception Portrait - Events by Luwa",
-    "width": 1080,
-    "height": 1350
-  },
-  {
-    "src": "assets/gallery/weddings/groom-traditional-attire-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Groom Traditional Attire Portrait - Events by Luwa",
-    "width": 1066,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-attire-green-couple-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Attire Green Couple Portrait - Events by Luwa",
-    "width": 1594,
-    "height": 2048
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-attire-teal-couple-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Attire Teal Couple Portrait - Events by Luwa",
-    "width": 750,
-    "height": 938
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-money-spray-detail.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Money Spray Detail - Events by Luwa",
-    "width": 750,
-    "height": 938
-  },
-  {
-    "src": "assets/gallery/weddings/wedding-cake-monogram-topper.jpeg",
-    "category": "Weddings",
-    "alt": "Wedding Cake Monogram Topper - Events by Luwa",
-    "width": 1600,
-    "height": 2000
-  },
-  {
-    "src": "assets/gallery/weddings/wedding-first-dance-blue-lights.jpeg",
-    "category": "Weddings",
-    "alt": "Wedding First Dance Blue Lights - Events by Luwa",
-    "width": 750,
-    "height": 938
-  },
-  {
-    "src": "assets/gallery/weddings/wedding-reception-dance-bubbles.jpeg",
-    "category": "Weddings",
-    "alt": "Wedding Reception Dance Bubbles - Events by Luwa",
-    "width": 1600,
-    "height": 1066
-  },
-  {
-    "src": "assets/gallery/weddings/yam-tubers-bride-price-basket.jpeg",
-    "category": "Weddings",
-    "alt": "Yam Tubers Bride Price Basket - Events by Luwa",
-    "width": 3527,
-    "height": 4703
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-bride-price-gifts-display.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Bride Price Gifts Display - Events by Luwa",
-    "width": 5120,
-    "height": 3413
-  },
-  {
-    "src": "assets/gallery/weddings/wedding-gift-trays-gold-tulle.jpeg",
-    "category": "Weddings",
-    "alt": "Wedding Gift Trays Gold Tulle - Events by Luwa",
-    "width": 5120,
-    "height": 3413
-  },
-  {
-    "src": "assets/gallery/weddings/bride-price-marriage-letter-display.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Price Marriage Letter Display - Events by Luwa",
-    "width": 5120,
-    "height": 3413
-  },
-  {
-    "src": "assets/gallery/weddings/marriage-acceptance-letter-detail.jpeg",
-    "category": "Weddings",
-    "alt": "Marriage Acceptance Letter Detail - Events by Luwa",
-    "width": 5107,
-    "height": 3648
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-cake-coral-beads-detail.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Cake Coral Beads Detail - Events by Luwa",
-    "width": 3605,
-    "height": 4807
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-maroon-couple-close-embrace.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Maroon Couple Close Embrace - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-maroon-couple-walking-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Maroon Couple Walking Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-maroon-couple-cheek-nuzzle.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Maroon Couple Cheek Nuzzle - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-maroon-couple-front-walk.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Maroon Couple Front Walk - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/traditional-maroon-couple-direct-gaze.jpeg",
-    "category": "Weddings",
-    "alt": "Traditional Maroon Couple Direct Gaze - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/groom-maroon-agbada-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Groom Maroon Agbada Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-maroon-veil-raised-hands.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Maroon Veil Raised Hands - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-maroon-descending-stairs.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Maroon Descending Stairs - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-maroon-veil-microphone-speech.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Maroon Veil Microphone Speech - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-maroon-front-portrait-smiling.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Maroon Front Portrait Smiling - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/aso-oke-pink-fan-eyes-closed.jpeg",
-    "category": "Weddings",
-    "alt": "Aso Oke Pink Fan Eyes Closed - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/aso-oke-pink-fan-full-length.jpeg",
-    "category": "Weddings",
-    "alt": "Aso Oke Pink Fan Full Length - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/aso-oke-pink-headshot-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Aso Oke Pink Headshot Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/aso-oke-pink-fan-leaning-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Aso Oke Pink Fan Leaning Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/groom-tan-suit-outdoor-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Groom Tan Suit Outdoor Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/groom-tan-suit-seated-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Groom Tan Suit Seated Portrait - Events by Luwa",
+    "alt": "Bride Groom Piano Arm In Arm - Events by Luwa",
     "width": 1142,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/groom-tan-suit-chair-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Groom Tan Suit Chair Portrait - Events by Luwa",
-    "width": 1066,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-piano-bouquet-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Piano Bouquet Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-piano-close-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Piano Close Portrait - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-floral-arch-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Floral Arch Portrait - Events by Luwa",
-    "width": 1200,
     "height": 1600
   },
   {
@@ -420,55 +252,6 @@
     "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/bride-groom-piano-arm-in-arm.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Piano Arm In Arm - Events by Luwa",
-    "width": 1142,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-ballroom-profile-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Ballroom Profile Portrait - Events by Luwa",
-    "width": 3714,
-    "height": 4643
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-ballroom-veil-portrait.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Ballroom Veil Portrait - Events by Luwa",
-    "width": 4016,
-    "height": 5020
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-gold-dress-reception-walk.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Gold Dress Reception Walk - Events by Luwa",
-    "width": 1066,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-confetti-walk.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Confetti Walk - Events by Luwa",
-    "width": 1200,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-close-dance-blue-lights.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Close Dance Blue Lights - Events by Luwa",
-    "width": 1142,
-    "height": 1600
-  },
-  {
-    "src": "assets/gallery/weddings/bride-groom-fog-dance-pink-lights.jpeg",
-    "category": "Weddings",
-    "alt": "Bride Groom Fog Dance Pink Lights - Events by Luwa",
-    "width": 1144,
-    "height": 1600
-  },
-  {
     "src": "assets/gallery/weddings/bride-groom-reception-dance-candid.jpeg",
     "category": "Weddings",
     "alt": "Bride Groom Reception Dance Candid - Events by Luwa",
@@ -476,45 +259,262 @@
     "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/reception-stage-floral-arch-empty.jpeg",
+    "src": "assets/gallery/weddings/bride-groom-staircase-portrait-bw.jpeg",
     "category": "Weddings",
-    "alt": "Reception Stage Floral Arch Empty - Events by Luwa",
-    "width": 5120,
-    "height": 3656
+    "alt": "Bride Groom Staircase Portrait Bw - Events by Luwa",
+    "width": 1280,
+    "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/reception-stage-fringe-lights-wide.jpeg",
+    "src": "assets/gallery/weddings/bride-maroon-descending-stairs.jpeg",
     "category": "Weddings",
-    "alt": "Reception Stage Fringe Lights Wide - Events by Luwa",
-    "width": 4766,
-    "height": 3404
+    "alt": "Bride Maroon Descending Stairs - Events by Luwa",
+    "width": 1200,
+    "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/reception-chandelier-fringe-lights-detail.jpeg",
+    "src": "assets/gallery/weddings/bride-maroon-front-portrait-smiling.jpeg",
     "category": "Weddings",
-    "alt": "Reception Chandelier Fringe Lights Detail - Events by Luwa",
-    "width": 4969,
-    "height": 3549
+    "alt": "Bride Maroon Front Portrait Smiling - Events by Luwa",
+    "width": 1200,
+    "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/reception-hall-purple-table-setting.jpeg",
+    "src": "assets/gallery/weddings/bride-maroon-veil-microphone-speech.jpeg",
     "category": "Weddings",
-    "alt": "Reception Hall Purple Table Setting - Events by Luwa",
-    "width": 5080,
-    "height": 3629
+    "alt": "Bride Maroon Veil Microphone Speech - Events by Luwa",
+    "width": 1200,
+    "height": 1600
   },
   {
-    "src": "assets/gallery/weddings/wedding-menu-table-setting.jpeg",
+    "src": "assets/gallery/weddings/bride-maroon-veil-raised-hands.jpeg",
     "category": "Weddings",
-    "alt": "Wedding Menu Table Setting - Events by Luwa",
-    "width": 5120,
-    "height": 3413
+    "alt": "Bride Maroon Veil Raised Hands - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-piano-bouquet-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Piano Bouquet Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-piano-close-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Piano Close Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/bride-price-marriage-letter-display.jpeg",
+    "category": "Weddings",
+    "alt": "Bride Price Marriage Letter Display - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/weddings/bridesmaids-getting-ready.jpeg",
+    "category": "Weddings",
+    "alt": "Bridesmaids Getting Ready - Events by Luwa",
+    "width": 1066,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/couple-evening-reception-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Couple Evening Reception Portrait - Events by Luwa",
+    "width": 1080,
+    "height": 1350
+  },
+  {
+    "src": "assets/gallery/weddings/groom-maroon-agbada-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Maroon Agbada Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/groom-tan-suit-chair-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Tan Suit Chair Portrait - Events by Luwa",
+    "width": 1066,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/groom-tan-suit-outdoor-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Tan Suit Outdoor Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/groom-tan-suit-seated-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Tan Suit Seated Portrait - Events by Luwa",
+    "width": 1142,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/groom-traditional-attire-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Groom Traditional Attire Portrait - Events by Luwa",
+    "width": 1066,
+    "height": 1600
   },
   {
     "src": "assets/gallery/weddings/lounge-decor-woven-wall-discs.jpeg",
     "category": "Weddings",
     "alt": "Lounge Decor Woven Wall Discs - Events by Luwa",
-    "width": 5016,
-    "height": 3583
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/marriage-acceptance-letter-detail.jpeg",
+    "category": "Weddings",
+    "alt": "Marriage Acceptance Letter Detail - Events by Luwa",
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/reception-chandelier-fringe-lights-detail.jpeg",
+    "category": "Weddings",
+    "alt": "Reception Chandelier Fringe Lights Detail - Events by Luwa",
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/reception-hall-purple-table-setting.jpeg",
+    "category": "Weddings",
+    "alt": "Reception Hall Purple Table Setting - Events by Luwa",
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/reception-stage-floral-arch-empty.jpeg",
+    "category": "Weddings",
+    "alt": "Reception Stage Floral Arch Empty - Events by Luwa",
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/reception-stage-fringe-lights-wide.jpeg",
+    "category": "Weddings",
+    "alt": "Reception Stage Fringe Lights Wide - Events by Luwa",
+    "width": 1600,
+    "height": 1143
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-attire-green-couple-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Attire Green Couple Portrait - Events by Luwa",
+    "width": 1594,
+    "height": 2048
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-attire-teal-couple-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Attire Teal Couple Portrait - Events by Luwa",
+    "width": 750,
+    "height": 938
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-bride-price-gifts-display.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Bride Price Gifts Display - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-cake-coral-beads-detail.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Cake Coral Beads Detail - Events by Luwa",
+    "width": 1600,
+    "height": 2133
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-maroon-couple-cheek-nuzzle.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Maroon Couple Cheek Nuzzle - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-maroon-couple-close-embrace.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Maroon Couple Close Embrace - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-maroon-couple-direct-gaze.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Maroon Couple Direct Gaze - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-maroon-couple-front-walk.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Maroon Couple Front Walk - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-maroon-couple-walking-portrait.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Maroon Couple Walking Portrait - Events by Luwa",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "src": "assets/gallery/weddings/traditional-money-spray-detail.jpeg",
+    "category": "Weddings",
+    "alt": "Traditional Money Spray Detail - Events by Luwa",
+    "width": 750,
+    "height": 938
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-cake-monogram-topper.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Cake Monogram Topper - Events by Luwa",
+    "width": 1600,
+    "height": 2000
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-first-dance-blue-lights.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding First Dance Blue Lights - Events by Luwa",
+    "width": 750,
+    "height": 938
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-gift-trays-gold-tulle.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Gift Trays Gold Tulle - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-menu-table-setting.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Menu Table Setting - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/weddings/wedding-reception-dance-bubbles.jpeg",
+    "category": "Weddings",
+    "alt": "Wedding Reception Dance Bubbles - Events by Luwa",
+    "width": 1600,
+    "height": 1066
+  },
+  {
+    "src": "assets/gallery/weddings/yam-tubers-bride-price-basket.jpeg",
+    "category": "Weddings",
+    "alt": "Yam Tubers Bride Price Basket - Events by Luwa",
+    "width": 1600,
+    "height": 2133
   }
 ]
