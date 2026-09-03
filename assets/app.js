@@ -33,6 +33,19 @@ if (mobilePanel) mobilePanel.querySelectorAll('a').forEach(a => a.addEventListen
 // back to top
 if (backTop) backTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
+// hero background slideshow (auto-rotates, pauses for reduced-motion users)
+(function(){
+  var layers = document.querySelectorAll('.hero-bg-layer');
+  if (layers.length < 2) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var i = 0;
+  setInterval(function(){
+    layers[i].classList.remove('active');
+    i = (i + 1) % layers.length;
+    layers[i].classList.add('active');
+  }, 6000);
+})();
+
 // scrollspy (anchor links only - multi-page nav links like about.html are skipped)
 const navLinks = document.querySelectorAll('[data-nav]');
 const sections = Array.from(navLinks).map(l => {
