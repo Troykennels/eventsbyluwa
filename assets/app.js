@@ -506,6 +506,13 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
             '<img loading="lazy" decoding="async"' + dims + ' src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
             '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
         }).join('');
+        // Force a reflow: replacing a large batch of items inside a CSS
+        // multi-column (`columns:`) container can leave the browser's
+        // column-balance stale - the grid stays visually blank until some
+        // later layout change (e.g. a filter click) forces a recompute.
+        grid.style.display = 'none';
+        void grid.offsetHeight;
+        grid.style.display = '';
         if (window.EBL_bindLightbox) window.EBL_bindLightbox(grid);
         var section = grid.closest('section');
         var row = section ? section.querySelector('.filter-row') : null;
