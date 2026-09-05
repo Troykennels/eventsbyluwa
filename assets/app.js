@@ -200,7 +200,7 @@ if (form) form.addEventListener('submit', (e) => {
   setTimeout(loaded, 1400); // safety net so the hero can never stay hidden
 
   // Stagger reveals within each grid so cards arrive in sequence, not all at once
-  document.querySelectorAll('.grid-3,.svc-grid,.pkg-grid,.blog-grid,.values-grid').forEach(function(group){
+  document.querySelectorAll('.grid-3,.svc-grid,.pkg-grid,.blog-grid,.values-grid,.testi-grid').forEach(function(group){
     var i = 0;
     Array.prototype.forEach.call(group.children, function(el){
       if (el.classList && el.classList.contains('reveal')) { el.style.setProperty('--i', i++); }

@@ -247,7 +247,7 @@ p{margin:0;}
 .d5{top:38%;left:38%;width:27.5%;background:var(--white);z-index:4;box-shadow:0 20px 44px -14px rgba(27,24,21,0.35);}
 .d5 .inner{transform:rotate(-45deg) scale(1);}
 .d5 .badge-circle{width:82px;height:82px;max-width:62%;max-height:62%;border-radius:50%;background:var(--ivory);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px var(--line);}
-.d5 .badge-circle img{width:70%;}
+.d5 .badge-circle img{width:70%;height:auto;}
 @media (max-width:420px){
   .diamond .inner{font-size:0.7rem;}
 }
@@ -438,6 +438,17 @@ p{margin:0;}
 .testi-wrap svg{width:36px;height:36px;color:var(--gold);margin:0 auto 18px;}
 .testi-wrap p.lead{font-family:'Playfair Display',serif;font-style:italic;font-size:1.35rem;color:var(--ink);max-width:56ch;margin:0 auto 14px;line-height:1.5;}
 .testi-wrap p.sub{color:var(--ink-soft);font-size:0.9rem;}
+
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);align-items:start;}
+@media (max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+.testi-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-l);
+  padding:var(--sp-5);box-shadow:var(--shadow-1);
+}
+.testi-card svg{width:26px;height:26px;color:var(--gold);margin-bottom:14px;}
+.testi-text{font-family:'Playfair Display',serif;font-style:italic;font-size:0.96rem;color:var(--ink);line-height:1.65;}
+.testi-name{margin-top:var(--sp-3);font-weight:700;color:var(--wine);font-size:0.88rem;letter-spacing:0.02em;}
+.testi-more{text-align:center;color:var(--ink-soft);font-size:0.9rem;margin-top:var(--sp-5);}
 
 /* ---------- blog ---------- */
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);}
