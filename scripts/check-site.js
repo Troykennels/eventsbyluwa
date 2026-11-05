@@ -5,6 +5,7 @@ let failures = [];
 const pages = fs.readdirSync(root).filter(name => name.endsWith('.html'));
 for (const name of pages) {
   const html = fs.readFileSync(path.join(root, name), 'utf8').replace(/<!--[\s\S]*?-->/g, '');
+  if (/formsubmit\.co|api\.web3forms\.com/.test(html)) failures.push(name + ': obsolete external form service');
   if (/newsletterForm|newsEmail/.test(html)) failures.push(name + ': obsolete subscription form');
   for (const match of html.matchAll(/\b(?:src|href)="([^"]+)"/g)) {
     const value = match[1];

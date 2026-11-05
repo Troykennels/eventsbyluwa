@@ -8,7 +8,7 @@ function worker(options = {}) {
   const caches = {
     open:async () => ({put:async (...args) => stored.push(args),addAll:async () => {}}),
     match:options.match || (async () => undefined),
-    keys:async () => ['ebl-old', 'ebl-delivery-1', 'another-app'],
+    keys:async () => ['ebl-old', 'ebl-delivery-2', 'another-app'],
     delete:async key => deleted.push(key)
   };
   const self = {location:{origin:'https://eventsbyluwa.com'},clients:{claim:async () => {}},skipWaiting:async () => {},addEventListener:(name, fn) => {listeners[name] = fn;}};

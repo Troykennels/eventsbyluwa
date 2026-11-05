@@ -5,16 +5,15 @@ The custom domain is `https://eventsbyluwa.com`; keep `CNAME` in the publishing 
 
 ## Contact flows
 
-- `assets/contact.js` contains public contact details and a shared FormSubmit client.
-- Enquiries reset only after the provider confirms acceptance. Rejections, invalid responses,
-  network failures, and timeouts keep the visitor's details and offer WhatsApp/email links.
-- Booking requests validate every field. The visitor must press Send inside WhatsApp;
-  opening a chat does not send a message. The email copy reports its own result.
+- `assets/contact.js` contains the client's public business email and WhatsApp number.
+- Enquiry and booking forms prepare the entered details in WhatsApp or the visitor's email app.
+  The visitor must press Send in that app. Opening a chat or draft is not delivery.
+- There are no background email requests, paid services, access keys, or form-provider accounts.
+- The site preserves entered details and displays clickable alternatives if an app does not open.
+- With JavaScript disabled, the contact page provides direct WhatsApp and email links.
 - There is no subscription form, customer database, or private dashboard on this site.
-- Email acceptance is not proof of inbox delivery. The owner must activate FormSubmit if
-  prompted and confirm a real enquiry arrives before client handover. Test the Spam folder too.
-- Do not put email-service API keys, passwords, customer records, or private analytics reports
-  in this repository. `owner-guide.html` and `analytics.html` are publicly accessible reference pages.
+- Do not put passwords or customer records in this repository. `owner-guide.html` and
+  `analytics.html` are publicly accessible reference pages.
 
 ## Checks
 
@@ -43,7 +42,7 @@ to an existing Chromium executable when appropriate.
 Gallery photos live in `assets/gallery/<category>/`. The existing gallery workflow optimises
 uploads and regenerates `gallery.json`. Team photos are separate from the public event gallery.
 The service worker caches only successful same-origin GET requests. It does not intercept
-FormSubmit or other third-party services, and shows an offline page for uncached navigation.
+third-party services, and shows an offline page for uncached navigation.
 Version shared CSS/JS URLs when publishing changes and update the service-worker cache version.
 
 Analytics is disabled until a real measurement ID is supplied. No live traffic numbers are invented.

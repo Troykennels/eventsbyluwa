@@ -176,38 +176,29 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Enquiries keep the visitor's details until the email service accepts them.
+// Prepare enquiries in the visitor's chosen app; sending is always their action.
 const form = document.getElementById('enquiryForm');
-if (form) form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  if (form.dataset.sending || !form.checkValidity()){ form.reportValidity(); return; }
-  const val = id => (form.querySelector('#' + id)?.value || '').trim();
-  const name = [val('fname'), val('lname')].filter(Boolean).join(' ');
-  if (!name){ form.querySelector('#fname').focus(); return; }
-  if (form.querySelector('[name="_honey"]')?.value) return;
-  const text = ['Hello Events by Luwa, I would like to plan an event.',
-    'Name: ' + name, 'Email: ' + val('email'), 'Phone: ' + val('phone'),
-    'Event: ' + val('eventType'), 'Preferred date: ' + val('eventDate'),
-    'Guests: ' + val('guests'), 'Budget: ' + val('budget'), 'Details: ' + val('message')].join('\n');
-  const links = [{label:'Send on WhatsApp', href:EBLContact.whatsapp(text)},
-    {label:'Send by email', href:EBLContact.mailto('Event enquiry', text)}];
-  const payload = {name:name, email:val('email'), phone:val('phone'), event:val('eventType'),
-    date:val('eventDate'), guests:val('guests'), budget:val('budget'), details:val('message'),
-    consent:'Visitor agreed to be contacted about this enquiry', _subject:'New event enquiry',
-    _template:'table', _url:location.origin + location.pathname};
-  const btn = form.querySelector('button[type="submit"]');
-  const message = document.getElementById('formMsg');
-  form.dataset.sending = 'true'; btn.disabled = true; btn.textContent = 'Sending enquiry';
-  try {
-    await EBLContact.send(payload);
-    EBLContact.render(message, 'Thank you. Your enquiry has been submitted. You can also contact us directly on WhatsApp.', [links[0]], false);
-    form.reset();
-  } catch (err){
-    EBLContact.render(message, 'We could not confirm your enquiry was submitted. Your details are still here. Please retry, or send them directly using one of the options below.', links, true);
-  } finally {
-    delete form.dataset.sending; btn.disabled = false; btn.textContent = 'Send Enquiry';
+if (form && window.EBLContact){
+  function prepareEnquiry(channel){
+    if (!form.reportValidity()) return;
+    const val = id => (form.querySelector('#' + id)?.value || '').trim();
+    const name = [val('fname'), val('lname')].filter(Boolean).join(' ');
+    if (!name){ form.querySelector('#fname').focus(); return; }
+    const text = ['Hello Events by Luwa, I would like to plan an event.',
+      'Name: ' + name, 'Email: ' + val('email'), 'Phone: ' + val('phone'),
+      'Event: ' + val('eventType'), 'Preferred date: ' + val('eventDate'),
+      'Guests: ' + val('guests'), 'Budget: ' + val('budget'), 'Details: ' + val('message')].join('\n');
+    const whatsapp = EBLContact.whatsapp(text), email = EBLContact.mailto('Event enquiry', text);
+    const links = [{label:'Open WhatsApp', href:whatsapp}, {label:'Open email app', href:email}];
+    EBLContact.render(document.getElementById('formMsg'), channel === 'email'
+      ? 'Your email draft is ready. Press Send in your email app to send your enquiry. If it did not open, use the links below.'
+      : 'Your message is ready in WhatsApp. Press Send there to send your enquiry. If it did not open, use the links below.', links, false);
+    try { window.open(channel === 'email' ? email : whatsapp, channel === 'email' ? '_self' : '_blank', 'noopener'); } catch (err) {}
   }
-});
+  form.addEventListener('submit', function(e){ e.preventDefault(); prepareEnquiry('whatsapp'); });
+  form.querySelector('[data-enquiry-email]').addEventListener('click', function(){ prepareEnquiry('email'); });
+  form.hidden = false;
+}
 
 // ---- Elevation layer (Orion Soft) ----
 (function(){
@@ -380,8 +371,8 @@ if (form) form.addEventListener('submit', async function(e){
         '<div class="field"><label for="bkBudget">Budget (optional)</label><input id="bkBudget" type="text" placeholder="e.g. 5,000"></div>' +
         '<div class="field"><label for="bkNotes">Anything else</label><textarea id="bkNotes" placeholder="Your vision, venue or questions"></textarea></div>' +
         '<label class="consent"><input type="checkbox" required> I agree to be contacted about this request.</label>' +
-        '<div class="form-trap" aria-hidden="true"><label>Leave empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>' +
-        '<button type="submit" class="btn btn-primary" style="width:100%;">Send on WhatsApp</button>' +
+        '<button type="submit" class="btn btn-primary" style="width:100%;">Continue to WhatsApp</button>' +
+        '<button type="button" class="btn btn-outline" data-booking-email style="width:100%;margin-top:10px;">Continue by email</button>' +
         '<div class="booking-msg" id="bkDone"></div>' +
       '</form>' +
     '</div>';
@@ -405,35 +396,24 @@ if (form) form.addEventListener('submit', async function(e){
   m.querySelector('.booking-close').addEventListener('click', close);
   m.addEventListener('click', function(e){ if (e.target === m) close(); });
   document.addEventListener('keydown', function(e){ if (m.classList.contains('open')){ if (e.key === 'Escape') close(); else trapFocus(m, e); } });
-  m.querySelector('.booking-form').addEventListener('submit', async function(e){
-    e.preventDefault();
-    var booking = e.currentTarget;
-    if (booking.dataset.sending || !booking.checkValidity()){ booking.reportValidity(); return; }
+  function prepareBooking(channel){
+    var booking = m.querySelector('.booking-form');
+    if (!booking.reportValidity()) return;
     var v = function(id){ return (m.querySelector(id).value || '').trim(); };
     if (!v('#bkName')){ m.querySelector('#bkName').focus(); return; }
-    if (booking.querySelector('[name="_honey"]').value) return;
     var lines = ['Hello Events by Luwa, I would like to book a consultation.',
       'Name: ' + v('#bkName'), 'Event: ' + v('#bkService'), 'Preferred date: ' + v('#bkDate'),
       'Guests: ' + v('#bkGuests'), 'Phone: ' + v('#bkPhone'), 'Email: ' + v('#bkEmail'),
       'Budget: ' + v('#bkBudget'), 'Notes: ' + v('#bkNotes')].join('\n');
-    var link = EBLContact.whatsapp(lines);
-    // The visitor must press Send in WhatsApp; opening a chat is not delivery.
-    window.open(link, '_blank', 'noopener');
-    var done = m.querySelector('#bkDone');
-    var links = [{label:'Open WhatsApp', href:link}, {label:'Send by email', href:EBLContact.mailto('Booking request', lines)}];
-    EBLContact.render(done, 'Your details are ready in WhatsApp. Press Send there to contact us. You can reopen the chat below.', links, false);
-    var button = booking.querySelector('button[type="submit"]');
-    booking.dataset.sending = 'true'; button.disabled = true;
-    try {
-      await EBLContact.send({name:v('#bkName'), event:v('#bkService'), date:v('#bkDate'), guests:v('#bkGuests'),
-        phone:v('#bkPhone'), email:v('#bkEmail'), budget:v('#bkBudget'), notes:v('#bkNotes'),
-        consent:'Visitor agreed to be contacted about this booking request',
-        _subject:'New booking request', _template:'table', _url:location.origin + location.pathname});
-      EBLContact.render(done, 'A copy of your request has been submitted by email. Remember to press Send in WhatsApp if you want to chat there.', links, false);
-    } catch (err){
-      EBLContact.render(done, 'We could not confirm the email copy. Please press Send in WhatsApp, or use the email link below. Your details are still here.', links, true);
-    } finally { delete booking.dataset.sending; button.disabled = false; }
-  });
+    var whatsapp = EBLContact.whatsapp(lines), email = EBLContact.mailto('Booking request', lines);
+    EBLContact.render(m.querySelector('#bkDone'), channel === 'email'
+      ? 'Your email draft is ready. Press Send in your email app to send your booking request. Your details stay here if you need them.'
+      : 'Your details are ready in WhatsApp. Press Send there to send your booking request. Your details stay here if you need them.',
+      [{label:'Open WhatsApp', href:whatsapp}, {label:'Open email app', href:email}], false);
+    try { window.open(channel === 'email' ? email : whatsapp, channel === 'email' ? '_self' : '_blank', 'noopener'); } catch (err) {}
+  }
+  m.querySelector('.booking-form').addEventListener('submit', function(e){ e.preventDefault(); prepareBooking('whatsapp'); });
+  m.querySelector('[data-booking-email]').addEventListener('click', function(){ prepareBooking('email'); });
   // Booking-intent CTAs open the modal (href stays as the no-JS fallback)
   document.querySelectorAll('a.btn').forEach(function(a){
     var t = a.textContent.trim().toLowerCase();

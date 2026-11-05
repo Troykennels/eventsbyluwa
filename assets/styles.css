@@ -881,8 +881,10 @@ body.menu-open{overflow:hidden;}
 }
 
 /* Submission feedback and an off-screen honeypot. */
-.form-trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
 .contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
 .form-msg.failed,.booking-msg.failed{background:#fff0ed;color:#7c2340;}
 .booking-modal .consent input{width:auto;flex:none;}
 @media(max-width:380px){.contact-actions .btn{padding:10px 16px;}.contact-grid,.form-row{min-width:0;}.form-card{padding:24px 18px;}}
+
+.enquiry-help{color:var(--ink-soft);font-size:.94rem;margin-bottom:24px;}
+#enquiryForm[hidden]{display:none;}

@@ -12,19 +12,17 @@ with sync_playwright() as pw:
         options["executable_path"] = os.environ["LUWA_BROWSER_PATH"]
     browser = pw.chromium.launch(**options)
     context = browser.new_context(service_workers="block", reduced_motion="reduce")
-    context.add_init_script("window.open = url => { window.lastWhatsAppUrl = url; return null; };")
+    context.add_init_script("window.open = url => { window.lastContactUrl = url; window.openCalls = (window.openCalls || 0) + 1; return null; };")
     page = context.new_page()
     errors = []
     requests = []
-    response_mode = "rejected"
     page.on("pageerror", lambda error: errors.append(str(error)))
 
     def route_request(route):
         url = route.request.url
-        if url.startswith("https://formsubmit.co/ajax/"):
-            requests.append(route.request.post_data_json)
-            body = {"success": response_mode == "accepted", "message": "Test response"}
-            route.fulfill(content_type="application/json", body=json.dumps(body))
+        if route.request.method == "POST":
+            requests.append(url)
+            route.abort()
             return
         if not url.startswith("http://luwa.local/"):
             route.abort()
@@ -53,39 +51,43 @@ with sync_playwright() as pw:
                 assert page.locator("#menuToggle").get_attribute("aria-expanded") == "false"
             print("PASS page and navigation:", name, width, flush=True)
 
-    # Enquiry rejection retains data; retry only resets on provider confirmation.
+    # Both channels prepare full messages locally and preserve entered details.
     page.goto("http://luwa.local/contact.html", wait_until="networkidle")
     for key, value in {"fname":"Test", "lname":"Visitor", "email":"test@example.com", "phone":"0123456789", "message":"Local test only"}.items():
         page.locator("#" + key).fill(value)
     page.locator("#eventType").select_option(label="Wedding")
     page.locator("#enquiryForm .consent input").check()
     page.locator("#enquiryForm button[type=submit]").click()
-    page.locator("#formMsg.failed").wait_for()
+    page.locator("#formMsg.show").wait_for()
     assert page.locator("#email").input_value() == "test@example.com"
+    assert page.evaluate("window.lastContactUrl.startsWith('https://wa.me/447823683189?text=')")
+    assert "Press Send" in page.locator("#formMsg").inner_text()
     assert page.locator("#formMsg a[href^='https://wa.me/']").count() == 1
-    response_mode = "accepted"
-    page.locator("#enquiryForm button[type=submit]").click()
-    page.wait_for_function("document.querySelector('#formMsg').classList.contains('show') && !document.querySelector('#formMsg').classList.contains('failed')")
-    assert page.locator("#email").input_value() == ""
-    print("PASS enquiry rejection, preserved details, and successful retry", flush=True)
+    page.locator("[data-enquiry-email]").click()
+    assert page.evaluate("window.lastContactUrl.startsWith('mailto:eventsbyluwa22@gmail.com?')")
+    assert page.locator("#message").input_value() == "Local test only"
+    assert not requests
+    print("PASS enquiry WhatsApp and email drafts; preserved details; no background submission", flush=True)
 
-    # Booking validates all fields and prepares WhatsApp without claiming delivery.
     page.locator("#bbBook").click()
     page.locator("#bkName").fill("Test Visitor")
     page.locator("#bkPhone").fill("0123456789")
     page.locator("#bkEmail").fill("invalid")
     page.locator(".booking-form .consent input").check()
-    count = len(requests)
+    count = page.evaluate("window.openCalls || 0")
     page.locator(".booking-form button[type=submit]").click()
-    assert len(requests) == count
+    assert page.evaluate("window.openCalls || 0") == count
     page.locator("#bkEmail").fill("test@example.com")
     page.locator(".booking-form button[type=submit]").click()
-    page.wait_for_function("document.querySelector('#bkDone').textContent.includes('submitted by email')")
-    assert page.evaluate("window.lastWhatsAppUrl.startsWith('https://wa.me/447823683189?text=')")
-    assert "_autoresponse" not in requests[-1]
+    assert page.evaluate("window.lastContactUrl.startsWith('https://wa.me/447823683189?text=')")
+    assert "Press Send" in page.locator("#bkDone").inner_text()
+    page.locator("[data-booking-email]").click()
+    assert page.evaluate("window.lastContactUrl.startsWith('mailto:eventsbyluwa22@gmail.com?')")
+    assert page.locator("#bkName").input_value() == "Test Visitor"
+    assert not requests
     page.keyboard.press("Escape")
     assert page.locator(".booking-modal").get_attribute("aria-hidden") == "true"
-    print("PASS booking validation and WhatsApp fallback", flush=True)
+    print("PASS booking validation and both contact channels; no background submission", flush=True)
 
     page.goto("http://luwa.local/gallery.html", wait_until="networkidle")
     page.locator(".filter-row").get_by_role("button", name="Ushering", exact=True).click()

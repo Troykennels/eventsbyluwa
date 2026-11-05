@@ -1,4 +1,4 @@
-const CACHE = 'ebl-delivery-1';
+const CACHE = 'ebl-delivery-2';
 const CORE = ['./', './index.html', './about.html', './services.html', './gallery.html',
   './blog.html', './contact.html', './offline.html', './assets/styles.css',
   './assets/contact.js', './assets/app.js', './brand/logo.png'];

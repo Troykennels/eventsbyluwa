@@ -3,25 +3,6 @@
   'use strict';
   var email = 'eventsbyluwa22@gmail.com';
   var phone = '447823683189';
-  async function send(payload, options){
-    options = options || {};
-    var controller = new AbortController();
-    var timer = setTimeout(function(){ controller.abort(); }, options.timeout || 12000);
-    try {
-      var response = await (options.fetch || root.fetch)('https://formsubmit.co/ajax/' + email, {
-        method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'},
-        body:JSON.stringify(payload), signal:controller.signal
-      });
-      if (!response.ok) throw new Error('The email service could not accept this request.');
-      var result = await response.json();
-      if (result.success !== true && result.success !== 'true') throw new Error('The email service did not confirm this request.');
-      // A queued request or activation instruction is not a confirmed submission.
-      if (/activat|confirm your email|verify your email/i.test(String(result.message || ''))) {
-        throw new Error('The receiving email address needs activation.');
-      }
-      return result;
-    } finally { clearTimeout(timer); }
-  }
   function whatsapp(text){ return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text); }
   function mailto(subject, text){ return 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(text); }
   function render(node, text, links, failed){
@@ -40,7 +21,7 @@
     node.classList.add('show'); node.classList.toggle('failed', !!failed);
     node.setAttribute('role', failed ? 'alert' : 'status');
   }
-  var api = {email:email, phone:phone, send:send, whatsapp:whatsapp, mailto:mailto, render:render};
+  var api = {email:email, phone:phone, whatsapp:whatsapp, mailto:mailto, render:render};
   root.EBLContact = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);
