@@ -1,4 +1,4 @@
-const CACHE = "ebl-v3-team-slideshow";
+const CACHE = "ebl-v4-team-layout";
 const CORE = ["./","./index.html","./assets/styles.css","./assets/app.js","./brand/logo.png","./about.html","./services.html","./gallery.html","./blog.html","./contact.html","./404.html"];
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE).catch(()=>{}))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k!==CACHE).map(k => caches.delete(k)))).then(()=>self.clients.claim())); });
