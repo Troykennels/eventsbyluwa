@@ -1,0 +1,20 @@
+name: Check website
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --check assets/app.js
+      - run: node --check assets/contact.js
+      - run: node --check sw.js
+      - run: node --test tests/contact.test.cjs tests/sw.test.cjs
+      - run: node scripts/check-site.js

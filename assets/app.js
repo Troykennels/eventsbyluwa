@@ -1,3 +1,13 @@
+// Keep keyboard navigation inside whichever overlay is open.
+function trapFocus(container, event){
+  if (event.key !== 'Tab') return;
+  var items = Array.from(container.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex="0"]')).filter(function(el){ return el.getClientRects().length; });
+  if (!items.length) return;
+  var first = items[0], last = items[items.length-1];
+  if (event.shiftKey && document.activeElement === first){ event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last){ event.preventDefault(); first.focus(); }
+}
+
 var _yr = document.getElementById('yr'); if (_yr) _yr.textContent = new Date().getFullYear();
 
 // nav scroll state
@@ -25,7 +35,7 @@ if (menuToggle && mobilePanel){
     menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (open && mobileClose) mobileClose.focus();
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobilePanel.classList.contains('open')) closeMenu(); });
+  document.addEventListener('keydown', (e) => { if (mobilePanel.classList.contains('open')){ if (e.key === 'Escape') closeMenu(); else trapFocus(mobilePanel, e); } });
 }
 if (mobileClose) mobileClose.addEventListener('click', closeMenu);
 if (mobilePanel) mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
@@ -166,73 +176,37 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Enquiry form -> opens a pre-filled WhatsApp chat (the conversion spine of
-// the strategy: every enquiry becomes a real, human conversation). No backend
-// needed. If the browser blocks the pop-up, we fall back to a tap-to-send link
-// plus email, so an enquiry is never lost.
+// Enquiries keep the visitor's details until the email service accepts them.
 const form = document.getElementById('enquiryForm');
-const formMsg = document.getElementById('formMsg');
-const WA_NUMBER = '447823683189';
-const ENQUIRY_EMAIL = 'eventsbyluwa22@gmail.com';
-if (form) form.addEventListener('submit', (e) => {
+if (form) form.addEventListener('submit', async function(e){
   e.preventDefault();
-  if (!form.checkValidity()){ form.reportValidity(); return; }
-  const val = id => (document.getElementById(id)?.value || '').trim();
+  if (form.dataset.sending || !form.checkValidity()){ form.reportValidity(); return; }
+  const val = id => (form.querySelector('#' + id)?.value || '').trim();
   const name = [val('fname'), val('lname')].filter(Boolean).join(' ');
-  const lines = [
-    'Hello Events by Luwa, I would like to plan an event.',
-    '',
-    'Name: ' + name,
-    'Email: ' + val('email'),
-    'Phone: ' + val('phone'),
-    'Event: ' + val('eventType'),
-    val('eventDate') ? 'Preferred date: ' + val('eventDate') : '',
-    val('guests')    ? 'Estimated guests: ' + val('guests') : '',
-    val('budget')    ? 'Estimated budget: ' + val('budget') : '',
-    '',
-    'Details: ' + val('message')
-  ].filter(l => l !== '');
-  const text = encodeURIComponent(lines.join('\n'));
-  const waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + text;
-
+  if (!name){ form.querySelector('#fname').focus(); return; }
+  if (form.querySelector('[name="_honey"]')?.value) return;
+  const text = ['Hello Events by Luwa, I would like to plan an event.',
+    'Name: ' + name, 'Email: ' + val('email'), 'Phone: ' + val('phone'),
+    'Event: ' + val('eventType'), 'Preferred date: ' + val('eventDate'),
+    'Guests: ' + val('guests'), 'Budget: ' + val('budget'), 'Details: ' + val('message')].join('\n');
+  const links = [{label:'Send on WhatsApp', href:EBLContact.whatsapp(text)},
+    {label:'Send by email', href:EBLContact.mailto('Event enquiry', text)}];
+  const payload = {name:name, email:val('email'), phone:val('phone'), event:val('eventType'),
+    date:val('eventDate'), guests:val('guests'), budget:val('budget'), details:val('message'),
+    consent:'Visitor agreed to be contacted about this enquiry', _subject:'New event enquiry',
+    _template:'table', _url:location.origin + location.pathname};
   const btn = form.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = 'Opening WhatsApp';
-
-  // Fire synchronously inside the click gesture so the browser allows it.
-  const wa = window.open(waLink, '_blank', 'noopener');
-
-  // Background: email a copy to Events by Luwa and auto-reply to the enquirer,
-  // so a lead is captured even if the visitor never taps send in WhatsApp.
+  const message = document.getElementById('formMsg');
+  form.dataset.sending = 'true'; btn.disabled = true; btn.textContent = 'Sending enquiry';
   try {
-    fetch('https://formsubmit.co/ajax/eventsbyluwa22@gmail.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        name: name, email: val('email'), phone: val('phone'), event: val('eventType'),
-        date: val('eventDate'), guests: val('guests'), budget: val('budget'), details: val('message'),
-        _subject: 'New event enquiry from ' + (name || 'the website'),
-        _template: 'table',
-        _autoresponse: 'Thank you for reaching out to Events by Luwa. We have received your enquiry and will reply personally, usually within a few hours. Warm regards, the Events by Luwa team.'
-      })
-    }).catch(function(){});
-  } catch (err) {}
-
-  setTimeout(() => {
-    var note = wa
-      ? "We've opened WhatsApp with your details. Just tap <strong>send</strong> and we'll take it from there. We reply personally, usually within a few hours."
-      : 'Your enquiry is ready. <a href="' + waLink + '" target="_blank" rel="noopener" style="color:var(--teal-deep);font-weight:700;text-decoration:underline;">Tap to send it on WhatsApp</a>, or email <a href="mailto:' + ENQUIRY_EMAIL + '" style="color:var(--teal-deep);font-weight:700;text-decoration:underline;">' + ENQUIRY_EMAIL + '</a>.';
-    formMsg.innerHTML =
-      '<div style="display:flex;gap:13px;align-items:flex-start;text-align:left;">' +
-        '<svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;color:var(--teal-deep);flex:none;margin-top:2px;"><path d="M2 13c3-3.4 5.3-4.4 7-3.2.4.3.7.7 1 1.2.3-.5.6-.9 1-1.2 1.7-1.2 4-.2 7 3.2-2.4-1.1-4.2-1.4-5.5-1-1 .3-1.8 1-2.5 2-.7-1-1.5-1.7-2.5-2-1.3-.4-3.1-.1-5.5 1Z"/></svg>' +
-        '<div><strong style="display:block;font-family:\'Playfair Display\',serif;font-size:1.1rem;color:var(--teal-deep);margin-bottom:3px;">Thank you. Your enquiry is on its way.</strong>' +
-        '<span>' + note + '</span></div>' +
-      '</div>';
-    formMsg.classList.add('show');
-    formMsg.setAttribute('role', 'status');
-    formMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    btn.disabled = false; btn.textContent = 'Send Enquiry';
+    await EBLContact.send(payload);
+    EBLContact.render(message, 'Thank you. Your enquiry has been submitted. You can also contact us directly on WhatsApp.', [links[0]], false);
     form.reset();
-  }, 700);
+  } catch (err){
+    EBLContact.render(message, 'We could not confirm your enquiry was submitted. Your details are still here. Please retry, or send them directly using one of the options below.', links, true);
+  } finally {
+    delete form.dataset.sending; btn.disabled = false; btn.textContent = 'Send Enquiry';
+  }
 });
 
 // ---- Elevation layer (Orion Soft) ----
@@ -288,7 +262,8 @@ if (form) form.addEventListener('submit', (e) => {
   var lbCount = document.getElementById('lbCount');
   if (lb && lbImg){
     var visibleSet = [];   // <img> elements currently swipeable through
-    var visibleIdx = 0;
+    var visibleIdx = 0, lightboxFocus = null, previousOverflow = '';
+    lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Event photo viewer');
 
     function setSlide(i){
       if (!visibleSet.length) return;
@@ -306,7 +281,8 @@ if (form) form.addEventListener('submit', (e) => {
 
     var closeLb = function(){
       lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
-      lbImg.src = ''; visibleSet = [];
+      lbImg.removeAttribute('src'); visibleSet = []; document.body.style.overflow = previousOverflow;
+      if (lightboxFocus) lightboxFocus.focus();
     };
     if (lbClose) lbClose.addEventListener('click', closeLb);
     if (lbPrev) lbPrev.addEventListener('click', goPrev);
@@ -314,6 +290,7 @@ if (form) form.addEventListener('submit', (e) => {
     lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
     document.addEventListener('keydown', function(e){
       if (!lb.classList.contains('open')) return;
+      trapFocus(lb, e);
       if (e.key === 'Escape') closeLb();
       else if (e.key === 'ArrowLeft') goPrev();
       else if (e.key === 'ArrowRight') goNext();
@@ -355,6 +332,7 @@ if (form) form.addEventListener('submit', (e) => {
         item.setAttribute('role', 'button');
         item.setAttribute('tabindex', '0');
         var openLb = function(){
+          lightboxFocus = document.activeElement; previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
           var grid = item.closest('[data-gallery]') || document;
           visibleSet = Array.prototype.filter.call(grid.querySelectorAll('.gal-item'), function(it){
             return it.style.display !== 'none' && it.querySelector('img');
@@ -371,39 +349,7 @@ if (form) form.addEventListener('submit', (e) => {
     window.EBL_bindLightbox(document);
   }
 
-  // Footer newsletter - one-tap subscribe. Posts the subscriber straight to
-  // Events by Luwa via FormSubmit (free, no backend). The visitor never has to
-  // open their own email. Falls back to a mailto link only if the request fails.
-  var news = document.getElementById('newsletterForm');
-  if (news){
-    news.addEventListener('submit', function(e){
-      e.preventDefault();
-      if (!news.checkValidity()){ news.reportValidity(); return; }
-      var email = (document.getElementById('newsEmail').value || '').trim();
-      var done = document.getElementById('newsDone');
-      var btn = news.querySelector('button[type="submit"]');
-      if (btn){ btn.disabled = true; btn.textContent = 'Subscribing'; }
-      fetch('https://formsubmit.co/ajax/eventsbyluwa22@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          _subject: 'New newsletter subscriber',
-          _template: 'table',
-          message: 'New newsletter subscriber: ' + email
-        })
-      })
-      .then(function(r){ return r.json(); })
-      .then(function(){
-        if (done){ done.textContent = 'Thank you. You are on the list, we will be in touch with lovely things.'; done.classList.add('show'); }
-        news.reset();
-      })
-      .catch(function(){
-        if (done){ done.innerHTML = 'Almost there. Please email <a href="mailto:eventsbyluwa22@gmail.com" style="color:var(--gold-pale);font-weight:700;">eventsbyluwa22@gmail.com</a> to subscribe.'; done.classList.add('show'); }
-      })
-      .finally(function(){ if (btn){ btn.disabled = false; btn.textContent = 'Subscribe'; } });
-    });
-  }
+
 })();
 
 // ---- Booking modal (progressive enhancement: CTAs still navigate without JS) ----
@@ -428,11 +374,13 @@ if (form) form.addEventListener('submit', (e) => {
         '</div>' +
         '<div class="form-row">' +
           '<div class="field"><label for="bkName">Your name</label><input id="bkName" type="text" required autocomplete="name"></div>' +
-          '<div class="field"><label for="bkPhone">Phone</label><input id="bkPhone" type="tel" autocomplete="tel"></div>' +
+          '<div class="field"><label for="bkPhone">Phone</label><input id="bkPhone" type="tel" required autocomplete="tel"></div>' +
         '</div>' +
         '<div class="field"><label for="bkEmail">Email</label><input id="bkEmail" type="email" autocomplete="email"></div>' +
         '<div class="field"><label for="bkBudget">Budget (optional)</label><input id="bkBudget" type="text" placeholder="e.g. 5,000"></div>' +
         '<div class="field"><label for="bkNotes">Anything else</label><textarea id="bkNotes" placeholder="Your vision, venue or questions"></textarea></div>' +
+        '<label class="consent"><input type="checkbox" required> I agree to be contacted about this request.</label>' +
+        '<div class="form-trap" aria-hidden="true"><label>Leave empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>' +
         '<button type="submit" class="btn btn-primary" style="width:100%;">Send on WhatsApp</button>' +
         '<div class="booking-msg" id="bkDone"></div>' +
       '</form>' +
@@ -456,36 +404,35 @@ if (form) form.addEventListener('submit', (e) => {
   function close(){ m.classList.remove('open'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
   m.querySelector('.booking-close').addEventListener('click', close);
   m.addEventListener('click', function(e){ if (e.target === m) close(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && m.classList.contains('open')) close(); });
-  m.querySelector('.booking-form').addEventListener('submit', function(e){
+  document.addEventListener('keydown', function(e){ if (m.classList.contains('open')){ if (e.key === 'Escape') close(); else trapFocus(m, e); } });
+  m.querySelector('.booking-form').addEventListener('submit', async function(e){
     e.preventDefault();
-    var nameEl = m.querySelector('#bkName');
-    if (!nameEl.value.trim()){ nameEl.reportValidity(); return; }
-    var v = function(id){ var el=m.querySelector(id); return el ? (el.value||'').trim() : ''; };
-    var lines = [
-      'Hello Events by Luwa, I would like to book a consultation.', '',
-      'Name: ' + v('#bkName'),
-      'Event: ' + v('#bkService'),
-      v('#bkDate')   ? 'Preferred date: ' + v('#bkDate') : '',
-      v('#bkGuests') ? 'Guests: ' + v('#bkGuests') : '',
-      v('#bkPhone')  ? 'Phone: ' + v('#bkPhone') : '',
-      v('#bkEmail')  ? 'Email: ' + v('#bkEmail') : '',
-      v('#bkBudget') ? 'Budget: ' + v('#bkBudget') : '',
-      v('#bkNotes')  ? 'Notes: ' + v('#bkNotes') : ''
-    ].filter(function(l){ return l !== ''; });
-    var link = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n'));
-    var w = window.open(link, '_blank', 'noopener');
-    // Background: capture the booking to email, and auto-reply if an email was given
-    try {
-      var payload = { name: v('#bkName'), event: v('#bkService'), date: v('#bkDate'), guests: v('#bkGuests'), phone: v('#bkPhone'), email: v('#bkEmail'), budget: v('#bkBudget'), notes: v('#bkNotes'), _subject: 'New booking request from ' + (v('#bkName') || 'the website'), _template: 'table' };
-      if (v('#bkEmail')) payload._autoresponse = 'Thank you for your booking request with Events by Luwa. We have received it and will reply personally, usually within a few hours. Warm regards, the Events by Luwa team.';
-      fetch('https://formsubmit.co/ajax/' + EMAIL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) }).catch(function(){});
-    } catch (err) {}
+    var booking = e.currentTarget;
+    if (booking.dataset.sending || !booking.checkValidity()){ booking.reportValidity(); return; }
+    var v = function(id){ return (m.querySelector(id).value || '').trim(); };
+    if (!v('#bkName')){ m.querySelector('#bkName').focus(); return; }
+    if (booking.querySelector('[name="_honey"]').value) return;
+    var lines = ['Hello Events by Luwa, I would like to book a consultation.',
+      'Name: ' + v('#bkName'), 'Event: ' + v('#bkService'), 'Preferred date: ' + v('#bkDate'),
+      'Guests: ' + v('#bkGuests'), 'Phone: ' + v('#bkPhone'), 'Email: ' + v('#bkEmail'),
+      'Budget: ' + v('#bkBudget'), 'Notes: ' + v('#bkNotes')].join('\n');
+    var link = EBLContact.whatsapp(lines);
+    // The visitor must press Send in WhatsApp; opening a chat is not delivery.
+    window.open(link, '_blank', 'noopener');
     var done = m.querySelector('#bkDone');
-    done.innerHTML = w
-      ? 'Wonderful. We have opened WhatsApp with your details. Just tap send and we will take it from there.'
-      : 'Your request is ready. <a href="' + link + '" target="_blank" rel="noopener" style="color:#0A5C52;font-weight:700;">Tap to send on WhatsApp</a> or email <a href="mailto:' + EMAIL + '" style="color:#0A5C52;font-weight:700;">' + EMAIL + '</a>.';
-    done.classList.add('show');
+    var links = [{label:'Open WhatsApp', href:link}, {label:'Send by email', href:EBLContact.mailto('Booking request', lines)}];
+    EBLContact.render(done, 'Your details are ready in WhatsApp. Press Send there to contact us. You can reopen the chat below.', links, false);
+    var button = booking.querySelector('button[type="submit"]');
+    booking.dataset.sending = 'true'; button.disabled = true;
+    try {
+      await EBLContact.send({name:v('#bkName'), event:v('#bkService'), date:v('#bkDate'), guests:v('#bkGuests'),
+        phone:v('#bkPhone'), email:v('#bkEmail'), budget:v('#bkBudget'), notes:v('#bkNotes'),
+        consent:'Visitor agreed to be contacted about this booking request',
+        _subject:'New booking request', _template:'table', _url:location.origin + location.pathname});
+      EBLContact.render(done, 'A copy of your request has been submitted by email. Remember to press Send in WhatsApp if you want to chat there.', links, false);
+    } catch (err){
+      EBLContact.render(done, 'We could not confirm the email copy. Please press Send in WhatsApp, or use the email link below. Your details are still here.', links, true);
+    } finally { delete booking.dataset.sending; button.disabled = false; }
   });
   // Booking-intent CTAs open the modal (href stays as the no-JS fallback)
   document.querySelectorAll('a.btn').forEach(function(a){
@@ -508,7 +455,7 @@ if (form) form.addEventListener('submit', (e) => {
 if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }
 
 // No past dates on any date picker (enquiry + booking modal)
-(function(){ try { var t = new Date().toISOString().split('T')[0]; document.querySelectorAll('input[type=date]').forEach(function(d){ d.min = t; }); } catch (e) {} })();
+(function(){ try { var t = [new Date().getFullYear(), String(new Date().getMonth()+1).padStart(2,'0'), String(new Date().getDate()).padStart(2,'0')].join('-'); document.querySelectorAll('input[type=date]').forEach(function(d){ d.min = t; }); } catch (e) {} })();
 
 // ---- Data-driven gallery: render owner-uploaded photos from the manifest ----
 // Keeps the designed placeholder tiles when the manifest is empty or unreachable.
@@ -530,14 +477,19 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
         // has no idea how tall a given photo will be, so every card starts
         // near-collapsed and some never visibly recover once the image does
         // load, especially several columns deep on a slow connection.
-        grid.innerHTML = items.map(function(it){
-          var dims = (it.width && it.height)
-            ? ' width="' + it.width + '" height="' + it.height + '" style="aspect-ratio:' + it.width + '/' + it.height + '"'
-            : '';
-          return '<figure class="gal-item">' +
-            '<img loading="lazy" decoding="async"' + dims + ' src="' + it.src + '" alt="' + (it.alt || 'Events by Luwa event') + '">' +
-            '<figcaption class="gtag">' + (it.category || 'Events') + '</figcaption></figure>';
-        }).join('');
+        var fragment = document.createDocumentFragment();
+        items.forEach(function(it){
+          var source;
+          try { source = new URL(it.src, document.baseURI); } catch (err){ return; }
+          if (source.origin !== location.origin || source.pathname.indexOf('/assets/gallery/') < 0) return;
+          var figure = document.createElement('figure'); figure.className = 'gal-item';
+          var img = document.createElement('img'); img.loading = 'lazy'; img.decoding = 'async';
+          img.src = source.href; img.alt = it.alt || 'Events by Luwa event';
+          if (Number(it.width) > 0 && Number(it.height) > 0){ img.width = Number(it.width); img.height = Number(it.height); }
+          var caption = document.createElement('figcaption'); caption.className = 'gtag'; caption.textContent = it.category || 'Events';
+          figure.append(img, caption); fragment.appendChild(figure);
+        });
+        if (fragment.childNodes.length) grid.replaceChildren(fragment);
         // Force the CSS multi-column layout to fully re-fragment and repaint.
         // Replacing a large batch of items inside a `columns:` container can
         // leave items correctly laid out (clickable) but not actually
@@ -551,7 +503,12 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
         var section = grid.closest('section');
         var row = section ? section.querySelector('.filter-row') : null;
         if (row){
-          row.innerHTML = cats.map(function(c,i){ return '<button class="filter-btn' + (i===0?' active':'') + '" aria-pressed="' + (i===0?'true':'false') + '">' + c + '</button>'; }).join('');
+          var filters = document.createDocumentFragment();
+          cats.forEach(function(category, i){
+            var button = document.createElement('button'); button.type = 'button'; button.className = 'filter-btn' + (i === 0 ? ' active' : '');
+            button.setAttribute('aria-pressed', String(i === 0)); button.textContent = category; filters.appendChild(button);
+          });
+          row.replaceChildren(filters);
           row.querySelectorAll('.filter-btn').forEach(function(btn){
             btn.addEventListener('click', function(){
               row.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });

@@ -521,6 +521,8 @@ p{margin:0;}
 .footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
 .footer a{font-size:0.9rem;font-weight:600;color:rgba(255,255,255,0.9);transition:color .2s ease;}
 .footer a:hover{color:var(--gold-pale);}
+.footer a.social-pill{color:var(--ink);}
+.footer a.social-pill:hover{color:var(--white);}
 .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:var(--sp-3);}
 .footer-brand .brand-badge{background:var(--white);}
 .footer-brand-word{font-family:'Playfair Display',serif;color:var(--white);font-size:1.1rem;}
@@ -718,19 +720,8 @@ body.loaded .hero-meta{--d:520ms;}
   .skeleton::before{animation:none !important;}
 }
 
-/* - footer newsletter (UI; submits via the visitor's own email app, no backend) - */
-.footer-news{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;
-  padding-bottom:var(--sp-5);margin-bottom:var(--sp-5);border-bottom:1px solid rgba(255,255,255,.12);}
-.footer-news .fn-copy h4{color:var(--white);font-family:'Playfair Display',serif;font-size:1.25rem;letter-spacing:0;text-transform:none;margin-bottom:4px;}
-.footer-news .fn-copy p{color:rgba(255,255,255,.7);font-size:.9rem;max-width:42ch;font-weight:500;}
-.footer-news form{display:flex;gap:10px;flex:1 1 320px;max-width:440px;}
-.footer-news input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:999px;
-  color:#fff;padding:12px 18px;font-family:'Jost',sans-serif;font-size:.92rem;}
-.footer-news input::placeholder{color:rgba(255,255,255,.5);}
-.footer-news input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(185,147,86,.2);}
-.footer-news .fn-done{color:var(--gold-pale);font-size:.86rem;margin-top:8px;display:none;}
-.footer-news .fn-done.show{display:block;}
-@media (max-width:640px){ .footer-news form{max-width:none;} }
+
+
 
 /* - final CTA brand watermark (elegant background element) - */
 .final-cta .cta-bird{position:absolute;right:5%;top:12%;width:120px;height:120px;color:rgba(255,255,255,.10);pointer-events:none;}
@@ -888,4 +879,10 @@ body.menu-open{overflow:hidden;}
   .team-controls{grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;padding:0 12px 16px;}
   .team-dot{width:clamp(22px,7vw,32px);}
 }
-@media(max-width:380px){.footer-news > div{min-width:0;width:100%;}.footer-news input{min-width:0;}.footer-news form{flex-wrap:wrap;}}
+
+/* Submission feedback and an off-screen honeypot. */
+.form-trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+.contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.form-msg.failed,.booking-msg.failed{background:#fff0ed;color:#7c2340;}
+.booking-modal .consent input{width:auto;flex:none;}
+@media(max-width:380px){.contact-actions .btn{padding:10px 16px;}.contact-grid,.form-row{min-width:0;}.form-card{padding:24px 18px;}}
