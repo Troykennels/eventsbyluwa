@@ -217,20 +217,6 @@ if (form) form.addEventListener('submit', (e) => {
   window.addEventListener('scroll', progress, {passive:true});
   window.addEventListener('resize', progress); progress();
 
-  // Subtle parallax tilt on the diamond lattice (desktop, motion-friendly only)
-  if (!reduce){
-    var hero = document.querySelector('.hero'), lat = document.querySelector('.lattice');
-    if (hero && lat && window.matchMedia('(min-width:981px)').matches){
-      hero.addEventListener('mousemove', function(e){
-        var r = hero.getBoundingClientRect();
-        var dx = (e.clientX - r.left) / r.width - 0.5;
-        var dy = (e.clientY - r.top) / r.height - 0.5;
-        lat.style.transform = 'translate(' + (dx*16).toFixed(1) + 'px,' + (dy*16).toFixed(1) + 'px)';
-      });
-      hero.addEventListener('mouseleave', function(){ lat.style.transform = ''; });
-    }
-  }
-
   // Loading screen: show once per session only, then dismiss fast (no fake delay on every click)
   var loader = document.getElementById('loader');
   try {
@@ -473,7 +459,7 @@ if (form) form.addEventListener('submit', (e) => {
 
 
 // ---- PWA: installable + offline (network-first, never stale) ----
-if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("/eventsbyluwa/sw.js").catch(function(){}); }); }
+if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }
 
 // No past dates on any date picker (enquiry + booking modal)
 (function(){ try { var t = new Date().toISOString().split('T')[0]; document.querySelectorAll('input[type=date]').forEach(function(d){ d.min = t; }); } catch (e) {} })();
@@ -545,7 +531,7 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", function(){ 
   bar.innerHTML =
     '<button type="button" class="btn btn-primary" id="bbBook">Start your booking</button>' +
     '<a class="bb-wa" href="https://wa.me/447823683189" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">' +
-    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2a8.1 8.1 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg></a>';
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.3-4.8a8.5 8.5 0 1 1 16.2-4Z"/><path d="m8.5 7 1.5 3-1.1 1.1a9 9 0 0 0 4 4L14 14l3 1.5c-.3 1.4-1.4 2-2.7 1.7-4.2-.9-7.6-4.3-8.5-8.5C5.5 7.4 6.1 6.3 7.5 6Z"/></svg></a>';
   document.body.appendChild(bar);
   bar.querySelector('#bbBook').addEventListener('click', function(){
     if (window.EBL_openBooking) window.EBL_openBooking();
