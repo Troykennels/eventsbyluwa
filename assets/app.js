@@ -61,6 +61,56 @@ if (backTop) backTop.addEventListener('click', () => window.scrollTo({top:0,beha
   });
 })();
 
+// Team photos: manual controls, optional autoplay, and reduced-motion support.
+(function(){
+  document.querySelectorAll('.team-carousel').forEach(function(carousel){
+    var slides = Array.from(carousel.querySelectorAll('.team-slide'));
+    var dots = Array.from(carousel.querySelectorAll('.team-dot'));
+    var play = carousel.querySelector('[data-team-play]');
+    if (slides.length < 2 || !play) return;
+    var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var index = 0, paused = motion.matches, visible = false, hovering = false, timer;
+    function prime(i){ slides[i].querySelector('img').loading = 'eager'; }
+    function schedule(){
+      clearInterval(timer);
+      play.textContent = paused ? 'Play slideshow' : 'Pause slideshow';
+      if (!paused && visible && !hovering && !document.hidden){
+        timer = setInterval(function(){ show(index + 1, false); }, 5000);
+      }
+    }
+    function show(next, manual){
+      index = (next + slides.length) % slides.length;
+      slides.forEach(function(slide, i){ slide.hidden = i !== index; });
+      dots.forEach(function(dot, i){ dot.setAttribute('aria-pressed', String(i === index)); });
+      prime(index); prime((index + 1) % slides.length);
+      if (manual){
+        paused = true;
+        carousel.querySelector('.team-announcement').textContent = 'Photo ' + (index + 1) + ' of ' + slides.length + ': ' + slides[index].querySelector('h3').textContent;
+        schedule();
+      }
+    }
+    carousel.querySelector('[data-team-prev]').addEventListener('click', function(){ show(index - 1, true); });
+    carousel.querySelector('[data-team-next]').addEventListener('click', function(){ show(index + 1, true); });
+    dots.forEach(function(dot, i){ dot.addEventListener('click', function(){ show(i, true); }); });
+    play.addEventListener('click', function(){ paused = !paused; schedule(); });
+    carousel.addEventListener('mouseenter', function(){ hovering = true; schedule(); });
+    carousel.addEventListener('mouseleave', function(){ hovering = false; schedule(); });
+    carousel.addEventListener('focusin', function(e){
+      if (e.target !== play){ paused = true; schedule(); }
+    });
+    carousel.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+        e.preventDefault(); show(index + (e.key === 'ArrowRight' ? 1 : -1), true);
+      }
+    });
+    document.addEventListener('visibilitychange', schedule);
+    motion.addEventListener('change', function(e){ if (e.matches){ paused = true; schedule(); } });
+    new IntersectionObserver(function(entries){ visible = entries[0].isIntersecting; schedule(); }, {threshold:0.1}).observe(carousel);
+    carousel.classList.add('ready');
+    show(0, false); schedule();
+  });
+})();
+
 // scrollspy (anchor links only - multi-page nav links like about.html are skipped)
 const navLinks = document.querySelectorAll('[data-nav]');
 const sections = Array.from(navLinks).map(l => {
