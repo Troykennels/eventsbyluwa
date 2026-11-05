@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://troykennels.github.io/eventsbyluwa/</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/about.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/services.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/gallery.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/blog.html</loc><lastmod>2026-08-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/contact.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://troykennels.github.io/eventsbyluwa/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://eventsbyluwa.com/</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://eventsbyluwa.com/about.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://eventsbyluwa.com/services.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://eventsbyluwa.com/gallery.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://eventsbyluwa.com/blog.html</loc><lastmod>2026-08-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://eventsbyluwa.com/contact.html</loc><lastmod>2026-08-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://eventsbyluwa.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://eventsbyluwa.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

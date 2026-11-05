@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://troykennels.github.io/eventsbyluwa/sitemap.xml
+Sitemap: https://eventsbyluwa.com/sitemap.xml
